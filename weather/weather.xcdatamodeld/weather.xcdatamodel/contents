@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G1012" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="WeatherObject" representedClassName="WeatherObject" syncable="YES" codeGenerationType="class">
+        <attribute name="descriptionWeather" optional="YES" attributeType="String"/>
+        <attribute name="feelsLikeWeather" optional="YES" attributeType="String"/>
+        <attribute name="humidityWeather" optional="YES" attributeType="String"/>
+        <attribute name="iconWeather" optional="YES" attributeType="String"/>
+        <attribute name="pressureWeather" optional="YES" attributeType="String"/>
+        <attribute name="tempMaxWeather" optional="YES" attributeType="String"/>
+        <attribute name="tempMinWeather" optional="YES" attributeType="String"/>
+        <attribute name="tempWeather" optional="YES" attributeType="String"/>
+        <attribute name="timeWeather" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="WeatherObject" positionX="-63" positionY="-18" width="128" height="178"/>
+    </elements>
+</model>
