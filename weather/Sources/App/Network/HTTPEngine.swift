@@ -15,17 +15,17 @@ enum URLSessionEngineError: Error {
 }
 
 final class HTTPEngine {
-    
+
     // MARK: - Properties
-    
+
     private let session: URLSession
-    
+
     // MARK: - Inputs
-    
+
     init(configuration: URLSessionConfiguration = .default) {
         self.session = URLSession(configuration: configuration)
     }
-    
+
     func send(request: URLRequest,
               cancelledBy token: RequestCancelationToken,
               callback: @escaping HTTPCompletionHander) {
@@ -41,7 +41,7 @@ final class HTTPEngine {
             task.cancel()
         }
     }
-    
+
     deinit {
         session.invalidateAndCancel()
     }

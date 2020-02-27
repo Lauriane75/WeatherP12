@@ -9,12 +9,12 @@
 import UIKit
 
 final class Screens {
-    
+
     let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: Screens.self))
-    
+
     private let context: Context
     private let stack: CoreDataStack
-    
+
     init(context: Context, stack: CoreDataStack) {
         self.context = context
         self.stack = stack
@@ -24,9 +24,9 @@ final class Screens {
 // MARK: - Main
 
 extension Screens {
-    
     func createMainViewController(delegate: WeatherViewModelDelegate?) -> UIViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: "WeatherViewController") as! WeatherViewController
+        let viewController = storyboard.instantiateViewController(withIdentifier:
+            "WeatherViewController") as! WeatherViewController
         let repository = WeatherRepository(client: context.client,
                                            stack: stack)
         let viewModel = WeatherViewModel(repository: repository,
@@ -40,7 +40,8 @@ extension Screens {
 
 extension Screens {
     func createSelectCityViewController() -> UIViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: "SelectCityViewController") as! SelectCityViewController
+        let viewController = storyboard.instantiateViewController(withIdentifier:
+            "SelectCityViewController") as! SelectCityViewController
         let viewModel = SelectCityViewModel()
         viewController.viewModel = viewModel
         return viewController
@@ -50,8 +51,10 @@ extension Screens {
 // MARK: - Detail
 
 extension Screens {
-    func createWeatherDetailViewController(selectedWeatherItem: WeatherItem, delegate: DetailWeatherDayViewModelDelegate?) -> UIViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: "DetailWeatherDayViewController") as! DetailWeatherDayViewController
+    func createWeatherDetailViewController(selectedWeatherItem: WeatherItem,
+                                           delegate: DetailWeatherDayViewModelDelegate?) -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier:
+            "DetailWeatherDayViewController") as! DetailWeatherDayViewController
         let repository = WeatherRepository(client: context.client, stack: stack)
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,

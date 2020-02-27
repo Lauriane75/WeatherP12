@@ -12,9 +12,9 @@ import XCTest
 // MARK: - Mock
 
 final class MockDetailWeatherViewModelDelegate: DetailWeatherDayViewModelDelegate {
-    
-    var alert: AlertType? = nil
-    
+
+    var alert: AlertType?
+
     func displayWeatherAlert(for type: AlertType) {
         self.alert = type
     }
@@ -23,10 +23,10 @@ final class MockDetailWeatherViewModelDelegate: DetailWeatherDayViewModelDelegat
 // MARK: - Tests
 
 class DetailWeatherDayViewModelTests: XCTestCase {
-    
+
     let delegate = MockDetailWeatherViewModelDelegate()
     let repository = MockWeatherRepository()
-    
+
     let weatherItem = WeatherItem(time: "2020-02-13 12:00:00",
                                   temperature: "19 °C",
                                   iconID: "01d",
@@ -36,65 +36,65 @@ class DetailWeatherDayViewModelTests: XCTestCase {
                                   humidity: "50 %",
                                   feelsLike: "18 °C",
                                   description: "Sunny")
-    
+
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_visibleItemsIsDisplayed() {
         repository.saveWeatherItems(items: weatherItem)
         repository.weatherItems = [weatherItem]
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
-        
+
         viewModel.visibleItems = { items in
             XCTAssertEqual(items[0], self.weatherItem)
         }
-        
+
         viewModel.viewDidLoad()
     }
-    
+
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_cityTextIsDisplayed() {
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
-        
+
         viewModel.cityText = { item in
             XCTAssertEqual(item, self.weatherItem.time)
         }
-        
+
         viewModel.viewDidLoad()
     }
-    
+
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_tempTextIsDisplayed() {
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
-        
+
         viewModel.tempText = { item in
             XCTAssertEqual(item, self.weatherItem.temperature)
         }
-        
+
         viewModel.viewDidLoad()
     }
-    
+
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_descriptionTextIsDisplayed() {
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
-        
+
         viewModel.descriptionText = { item in
             XCTAssertEqual(item, self.weatherItem.description)
         }
-        
+
         viewModel.viewDidLoad()
     }
-    
+
     func test_Given_ViewModel_When_noItems_Then_alert() {
         repository.weatherItems = []
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
-        
+
         viewModel.viewDidLoad()
-        
+
         XCTAssertEqual(delegate.alert, .errorService)
     }
 }

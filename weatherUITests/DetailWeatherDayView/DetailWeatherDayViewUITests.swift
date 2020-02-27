@@ -11,7 +11,7 @@ import XCTest
 // Make sure the accessibility file is updated!
 
 class DetailWeatherDayViewUITests: UITestCase, RootViewStarting, DetailWeatherDayViewVerifying {
-    
+
     func test_VerifyingDetailWeatherDayView() {
         showDetailWeatherDayView()
         // Wait

@@ -28,12 +28,12 @@ extension TabBarSourceType {
     }
 }
 
-fileprivate class TabBarSource: TabBarSourceType {
+private class TabBarSource: TabBarSourceType {
     var items: [UINavigationController] = [
         UINavigationController(nibName: nil, bundle: nil),
-        UINavigationController(nibName: nil, bundle: nil),
+        UINavigationController(nibName: nil, bundle: nil)
     ]
-    
+
     init() {
         self[.weather].tabBarItem.image = UIImage(systemName: "sun.max")
         self[.selectCity].tabBarItem.image = UIImage(systemName: "plus.circle")
@@ -41,53 +41,52 @@ fileprivate class TabBarSource: TabBarSourceType {
 }
 
 final class MainCoordinator: NSObject, UITabBarControllerDelegate {
-    
+
     // MARK: - Properties
-    
+
     private let presenter: UIWindow
-    
+
     private let tabBarController: UITabBarController
-    
+
     private let screens: Screens
-    
+
     private let context: Context
-    
+
     private let stack: CoreDataStack
-    
+
     private var tabBarSource: TabBarSourceType = TabBarSource()
-    
+
     private var weatherCoordinator: WeatherCoordinator?
-    
+
     private var selectCityCoordinator: SelectCityCoordinator?
-    
-    
+
     // MARK: - Init
-    
+
     init(presenter: UIWindow, context: Context, stack: CoreDataStack) {
         self.presenter = presenter
         self.context = context
         self.stack = stack
         self.screens = Screens(context: context, stack: stack)
-        
+
         tabBarController = UITabBarController(nibName: nil, bundle: nil)
         tabBarController.viewControllers = tabBarSource.items
         tabBarController.selectedViewController = tabBarSource[.weather]
-        
+
         super.init()
-        
+
         tabBarController.delegate = self
     }
-    
+
     func start() {
         presenter.rootViewController = tabBarController
         showMainView()
     }
-    
+
     private func showMainView() {
         weatherCoordinator = WeatherCoordinator(presenter: tabBarSource[.weather], screens: screens)
         weatherCoordinator?.start()
     }
-    
+
     private func showSelectCityView() {
         selectCityCoordinator = SelectCityCoordinator(presenter: tabBarSource[.selectCity], screens: screens)
         selectCityCoordinator?.start()
@@ -100,7 +99,7 @@ extension MainCoordinator {
         guard index < tabBarSource.items.count, let item = ViewControllerItem(rawValue: index) else {
             fatalError("Selected ViewController Index Out Of range")
         }
-        
+
         switch item {
         case .weather:
             showMainView()

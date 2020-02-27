@@ -50,11 +50,18 @@ extension HomeWeatherViewVerifying {
         return XCUIApplication().staticTexts[Accessibility.HomeWeatherView.tempText]
     }
     var icon: XCUIElement {
-        return XCUIApplication().children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0)
+        return XCUIApplication().children(matching: .window).element(boundBy: 0).children(matching: .other)
+            .element.children(matching: .other).element.children(matching: .other)
+            .element.children(matching: .other).element.children(matching: .other)
+            .element.children(matching: .other).element.children(matching: .other)
+            .element.children(matching: .other).element.children(matching: .other)
+            .element.children(matching: .other).element(boundBy: 0)
     }
-   var selectedItem: XCUIElement {
-        return   XCUIApplication().tables.cells.containing(.staticText, identifier:Accessibility.HomeWeatherView.selectedDayText).children(matching: .staticText).matching(identifier: Accessibility.HomeWeatherView.selectedTempText).element(boundBy: 2)
+    var selectedItem: XCUIElement {
+        return   XCUIApplication()
+            .tables.cells.containing(.staticText,
+                identifier: Accessibility.HomeWeatherView.selectedDayText)
+            .children(matching: .staticText).matching(
+                identifier: Accessibility.HomeWeatherView.selectedTempText).element(boundBy: 2)
     }
 }
-
-

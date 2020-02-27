@@ -14,17 +14,17 @@ enum CoreDataStackType {
 }
 
 final class CoreDataStack {
-    
+
     // MARK: - Properties
-    
+
     private let container: NSPersistentContainer
-    
+
     var context: NSManagedObjectContext {
         return container.viewContext
     }
-    
+
     // MARK: - Initializer
-    
+
     init(modelName: String, type: CoreDataStackType) {
         container = NSPersistentContainer(name: modelName)
         if type == .test {
@@ -32,15 +32,15 @@ final class CoreDataStack {
             description.type = NSInMemoryStoreType
             container.persistentStoreDescriptions = [description]
         }
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
     }
-    
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext() {
         if context.hasChanges {
             try? context.save()

@@ -12,7 +12,7 @@ import XCTest
 // MARK: - Tests
 
 class SelectCityViewModelTests: XCTestCase {
-    
+
     let weatherItem = WeatherItem(time: "2020-02-13 12:00:00",
                                   temperature: "19 °C",
                                   iconID: "01d",
@@ -22,10 +22,10 @@ class SelectCityViewModelTests: XCTestCase {
                                   humidity: "50 %",
                                   feelsLike: "18 °C",
                                   description: "Sunny")
-    
+
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_IsDisplayed() {
         let viewModel = SelectCityViewModel()
-        
+
         viewModel.titleText = { text in
             XCTAssertEqual(text, "Select an other city")
         }
@@ -53,8 +53,7 @@ class SelectCityViewModelTests: XCTestCase {
         viewModel.telAvivText = { text in
             XCTAssertEqual(text, "Tel Aviv")
         }
-        
+
         viewModel.viewDidLoad()
     }
-    
 }

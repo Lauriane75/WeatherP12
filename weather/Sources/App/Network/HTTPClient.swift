@@ -26,25 +26,25 @@ protocol HTTPClientType {
 }
 
 enum RequestType: String {
-    case GET = "GET"
-    case POST = "POST"
+    case GET
+    case POST
 }
 
 class HTTPClient: HTTPClientType {
-    
+
     // MARK: - Properties
-    
+
     private let engine: HTTPEngine
-    
+
     private let jsonDecoder: JSONDecoder
-    
+
     // MARK: - Initializer
-    
+
     init(engine: HTTPEngine = HTTPEngine.init(configuration: .default)) {
         self.engine = engine
         self.jsonDecoder = JSONDecoder()
     }
-    
+
     func request<T>(type: T.Type,
                     requestType: RequestType,
                     url: URL,
