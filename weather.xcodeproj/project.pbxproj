@@ -265,10 +265,10 @@
 		F66FB64E23F16BFE00749277 /* Weather Module  */ = {
 			isa = PBXGroup;
 			children = (
+				F6D8074223ECBBE400C53355 /* WeatherRepository.swift */,
 				2F05AFC823F46C8100CBEC50 /* Model */,
 				F6D8072D23ECB45700C53355 /* HomeWeather */,
 				F671814323F0AF5F00D1ADB7 /* DetailWeatherDay */,
-				F6D8074223ECBBE400C53355 /* WeatherRepository.swift */,
 				F65A204223F2BEF9005FC65F /* Extension.swift */,
 			);
 			path = "Weather Module ";
