@@ -29,6 +29,9 @@ class CityListViewController: UIViewController {
 
         navigationBarCustom()
 
+        tableView.delegate = source
+        tableView.dataSource = source
+
         bind(to: viewModel)
         bind(to: source)
 

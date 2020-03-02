@@ -55,6 +55,9 @@ final class SelectCityViewModel {
     // MARK: - Private Files
 
     func didSelectCity(nameCity: String, country: String) {
+
+//        let cityInfo = CityInfo(nameCity: nameCity, country: country)
+
         delegate?.didSelectCity(nameCity: nameCity, country: country)
         repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
             guard self != nil else { return }
@@ -69,4 +72,9 @@ final class SelectCityViewModel {
             }
         })
     }
+}
+
+struct CityInfo: Equatable {
+    let nameCity: String
+    let country: String
 }
