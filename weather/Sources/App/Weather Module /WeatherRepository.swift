@@ -13,6 +13,7 @@ protocol WeatherRepositoryType: class {
     func saveWeatherItems(items: WeatherItem)
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
     func deleteInDataBase(timeWeather: String)
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
 }
 
 final class WeatherRepository: WeatherRepositoryType {
@@ -60,6 +61,38 @@ final class WeatherRepository: WeatherRepositoryType {
             }
         }
     }
+
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void) {
+        let stringUrl =
+        "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
+
+        print("url = \(stringUrl)")
+
+          guard let url = URL(string: stringUrl) else { return }
+          client.request(type: Weather.self,
+                         requestType: .GET,
+                         url: url,
+                         cancelledBy: token) { weather in
+
+              switch weather {
+
+              case .success(value: let weatheritems):
+                  let items: [WeatherItem] = weatheritems.forecasts.map { item in
+                      return WeatherItem(item: item) }
+                  callback(.success(value: (items)))
+
+              case .error(error: let error):
+                  let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
+                  if let weather = try? self.stack.context.fetch(requestWeather) {
+                      let items: [WeatherItem] = weather.map {
+                          return WeatherItem(object: $0) }
+                      callback(.success(value: (items)))
+                  } else {
+                      callback(.error(error: error))
+                  }
+              }
+          }
+      }
 
     // MARK: - Save in coredata
 

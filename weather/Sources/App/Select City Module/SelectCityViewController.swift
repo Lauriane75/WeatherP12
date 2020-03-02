@@ -89,6 +89,12 @@ class SelectCityViewController: UIViewController {
         }
     }
 
+    // MARK: - View actions
+
+    @IBAction func didPressLyonButton(_ sender: Any) {
+        viewModel.didSelectCity(nameCity: "lyon", country: "fr")
+    }
+
     // MARK: - Private Files
 
     func navigationBarCustom() {

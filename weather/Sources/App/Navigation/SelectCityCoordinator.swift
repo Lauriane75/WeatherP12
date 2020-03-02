@@ -30,12 +30,18 @@ final class SelectCityCoordinator {
     }
 
     private func showHome() {
-        let viewController = screens.createSelectCityViewController()
+        let viewController = screens.createSelectCityViewController(delegate: self)
         presenter.viewControllers = [viewController]
     }
 
     private func showAlert(for type: AlertType) {
         let alert = screens.createAlertView(for: type)
         presenter.visibleViewController?.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension SelectCityCoordinator: SelectCityViewModelDelegate {
+    func didSelectCity(nameCity: String, country: String) {
+
     }
 }

@@ -103,4 +103,5 @@ class WeatherViewController: UIViewController {
         bar.shadowImage = UIImage()
         bar.alpha = 0.0
     }
+
 }

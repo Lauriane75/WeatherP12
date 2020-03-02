@@ -36,13 +36,28 @@ extension Screens {
     }
 }
 
+//extension Screens {
+//    func creatWeatherCityViewController(delegate: WeatherViewModelDelegate?, cityName: String, country: String) -> UIViewController {
+//        let viewController = storyboard.instantiateViewController(withIdentifier:
+//            "WeatherViewController") as! WeatherViewController
+//        let repository = WeatherRepository(client: context.client,
+//                                           stack: stack)
+//        let viewModel = WeatherViewModel(repository: repository,
+//                                         delegate: delegate)
+//        viewController.viewModel = viewModel
+//        return viewController
+//    }
+//}
+
 // MARK: - Select City
 
 extension Screens {
-    func createSelectCityViewController() -> UIViewController {
+    func createSelectCityViewController(delegate: SelectCityViewModelDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
             "SelectCityViewController") as! SelectCityViewController
-        let viewModel = SelectCityViewModel()
+        let repository = WeatherRepository(client: context.client,
+        stack: stack)
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
         viewController.viewModel = viewModel
         return viewController
     }

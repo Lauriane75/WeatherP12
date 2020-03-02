@@ -8,11 +8,24 @@
 
 import Foundation
 
+protocol SelectCityViewModelDelegate: class {
+    func didSelectCity(nameCity: String, country: String)
+}
+
 final class SelectCityViewModel {
 
     // MARK: - Properties
 
+    private let repository: WeatherRepositoryType
+
+    private weak var delegate: SelectCityViewModelDelegate?
+
     // MARK: - Initializer
+
+    init(repository: WeatherRepositoryType, delegate: SelectCityViewModelDelegate?) {
+        self.repository = repository
+        self.delegate = delegate
+    }
 
     // MARK: - Outputs
 
@@ -52,4 +65,20 @@ final class SelectCityViewModel {
     }
 
     // MARK: - Private Files
+
+    func didSelectCity(nameCity: String, country: String) {
+        delegate?.didSelectCity(nameCity: nameCity, country: country)
+        repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
+            guard self != nil else { return }
+            switch weather {
+            case .success(value: let items):
+                guard !items.isEmpty else {
+                    return
+                }
+                print("items = \(items)")
+            case .error:
+                print("error")
+            }
+        })
+    }
 }
