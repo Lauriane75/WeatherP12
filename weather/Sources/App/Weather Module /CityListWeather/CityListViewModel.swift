@@ -27,6 +27,8 @@ final class CityListViewModel {
         }
     }
 
+    private let timeWeatherDay = "12:00:00"
+
     // MARK: - Initializer
 
     init(repository: WeatherRepositoryType, delegate: CityListViewModelDelegate?) {
@@ -78,7 +80,7 @@ final class CityListViewModel {
     }
 
     private func initialize(items: [WeatherItem]) {
-        let items = items
+        let items = items.filter { $0.time.contains(self.timeWeatherDay) }
         if items.isEmpty {
             self.delegate?.displayAlert(for: .errorService)
         }
