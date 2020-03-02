@@ -13,24 +13,11 @@ class SelectCityViewController: UIViewController {
     // MARK: - Outlet
 
     @IBOutlet weak var titleLabel: UILabel!
-
-    @IBOutlet weak var parisButton: UIButton!
-
-    @IBOutlet weak var lyonButton: UIButton!
-
-    @IBOutlet weak var nantesButton: UIButton!
-
-    @IBOutlet weak var barcelonaButton: UIButton!
-
-    @IBOutlet weak var warsawButton: UIButton!
-
-    @IBOutlet weak var amsterdamButton: UIButton!
-
-    @IBOutlet weak var brusselsButton: UIButton!
-
-    @IBOutlet weak var lausanneButton: UIButton!
-
-    @IBOutlet weak var telAvivButton: UIButton!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var countryTextField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
 
     // MARK: - Properties
 
@@ -55,44 +42,36 @@ class SelectCityViewController: UIViewController {
         viewModel.titleText = { [weak self] text in
             self?.titleLabel.text = text
         }
-
-        viewModel.parisText = { [weak self] text in
-            self?.parisButton.setTitle(text, for: .normal)
+        viewModel.cityText = { [weak self] text in
+            self?.cityLabel.text = text
         }
-
-        viewModel.lyonText = { [weak self] text in
-            self?.lyonButton.setTitle(text, for: .normal)
+        viewModel.cityPlaceHolder = { [weak self] text in
+        self?.cityTextField.placeholder = text
         }
-
-        viewModel.nantesText = { [weak self] text in
-            self?.nantesButton.setTitle(text, for: .normal)
+        viewModel.countryText = { [weak self] text in
+            self?.countryLabel.text = text
         }
-
-        viewModel.barcelonaText = { [weak self] text in
-            self?.barcelonaButton.setTitle(text, for: .normal)
+        viewModel.countryPlaceHolder = { [weak self] text in
+            self?.countryTextField.placeholder = text
         }
-
-        viewModel.warsawText = { [weak self] text in
-            self?.warsawButton.setTitle(text, for: .normal)
-        }
-
-        viewModel.brusselsText = { [weak self] text in
-            self?.brusselsButton.setTitle(text, for: .normal)
-        }
-
-        viewModel.lausanneText = { [weak self] text in
-            self?.lausanneButton.setTitle(text, for: .normal)
-        }
-
-        viewModel.telAvivText = { [weak self] text in
-            self?.telAvivButton.setTitle(text, for: .normal)
+        viewModel.addText = { [weak self] text in
+            self?.addButton.setTitle(text, for: .normal)
         }
     }
 
     // MARK: - View actions
 
-    @IBAction func didPressLyonButton(_ sender: Any) {
-        viewModel.didSelectCity(nameCity: "lyon", country: "fr")
+    @IBAction func didPresCityTextField(_ sender: Any) {
+    }
+
+    @IBAction func didPressCountryTextField(_ sender: Any) {
+
+    }
+
+    @IBAction func didPressAddButton(_ sender: Any) {
+        guard let city = cityTextField.text else { return }
+        guard let country = countryTextField.text else { return }
+        viewModel.didSelectCity(nameCity: city, country: country)
     }
 
     // MARK: - Private Files
@@ -105,20 +84,10 @@ class SelectCityViewController: UIViewController {
     }
 
     func elementCustom() {
-        let cityButtons = [parisButton,
-                           lyonButton,
-                           nantesButton,
-                           barcelonaButton,
-                           warsawButton,
-                           amsterdamButton,
-                           brusselsButton,
-                           lausanneButton,
-                           telAvivButton]
-
-        cityButtons.forEach {
-            $0?.layer.borderWidth = 1
-            $0?.layer.borderColor = UIColor.white.cgColor
-            $0?.layer.cornerRadius = 15
-        }
+        //        cityButtons.forEach {
+        //            $0?.layer.borderWidth = 1
+        //            $0?.layer.borderColor = UIColor.white.cgColor
+        //            $0?.layer.cornerRadius = 15
+        //        }
     }
 }

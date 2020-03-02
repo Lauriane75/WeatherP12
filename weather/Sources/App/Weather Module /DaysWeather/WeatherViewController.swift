@@ -46,6 +46,8 @@ class WeatherViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 
+    // MARK: - Private Functions
+
     private func bind(to viewModel: WeatherViewModel) {
         viewModel.visibleItems = { [weak self] items in
             DispatchQueue.main.async {

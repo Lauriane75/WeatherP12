@@ -31,37 +31,25 @@ final class SelectCityViewModel {
 
     var titleText: ((String) -> Void)?
 
-    var parisText: ((String) -> Void)?
+    var cityText: ((String) -> Void)?
 
-    var lyonText: ((String) -> Void)?
+    var cityPlaceHolder: ((String) -> Void)?
 
-    var nantesText: ((String) -> Void)?
+    var countryText: ((String) -> Void)?
 
-    var barcelonaText: ((String) -> Void)?
+    var countryPlaceHolder: ((String) -> Void)?
 
-    var warsawText: ((String) -> Void)?
-
-    var amsterdamText: ((String) -> Void)?
-
-    var brusselsText: ((String) -> Void)?
-
-    var lausanneText: ((String) -> Void)?
-
-    var telAvivText: ((String) -> Void)?
+    var addText: ((String) -> Void)?
 
     // MARK: - Inputs
 
     func viewDidLoad() {
         titleText?("Select an other city")
-        parisText?("Paris")
-        lyonText?("Lyon")
-        nantesText?("Nantes")
-        barcelonaText?("Barcelona")
-        warsawText?("Warsaw")
-        amsterdamText?("Amsterdam")
-        brusselsText?("Brussels")
-        lausanneText?("Lausanne")
-        telAvivText?("Tel Aviv")
+        cityText?("Enter the name of the city")
+        cityPlaceHolder?("Paris")
+        countryText?("Enter the first two letters of the country")
+        countryPlaceHolder?("fr")
+        addText?("Add this city to the list")
     }
 
     // MARK: - Private Files

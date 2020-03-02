@@ -50,6 +50,9 @@ final class WeatherCoordinator {
     }
 }
 
+extension WeatherCoordinator: CityListViewModelDelegate {
+}
+
 extension WeatherCoordinator: WeatherViewModelDelegate {
     func displayWeatherAlert(for type: AlertType) {
         DispatchQueue.main.async {

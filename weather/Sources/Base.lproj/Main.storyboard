@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i63-TB-1Dd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yZf-gw-rZW">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
@@ -8,6 +8,90 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--City List View Controller-->
+        <scene sceneID="7xF-y9-f8x">
+            <objects>
+                <viewController storyboardIdentifier="CityListViewController" id="yZf-gw-rZW" customClass="CityListViewController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bKa-fJ-ai0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky" translatesAutoresizingMaskIntoConstraints="NO" id="Hnt-ps-oiH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T36-ru-rTx">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityTableViewCell" rowHeight="111" id="gF8-10-6oQ" customClass="CityTableViewCell" customModule="weather" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="111"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gF8-10-6oQ" id="v9B-dl-q77">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="111"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="ybQ-ab-Pi6">
+                                                    <rect key="frame" x="20" y="4" width="284" height="103"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paris" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6F-31-vJn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="103"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="150" id="C5e-GJ-OCn"/>
+                                                                <constraint firstAttribute="height" constant="40" id="eFU-cK-E41"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="24"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15°C" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ae-Md-UIo">
+                                                            <rect key="frame" x="220" y="0.0" width="64" height="103"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="150" id="NQj-ab-gpZ"/>
+                                                                <constraint firstAttribute="height" constant="40" id="r0f-Lt-wtK"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="27"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ybQ-ab-Pi6" firstAttribute="top" secondItem="v9B-dl-q77" secondAttribute="top" constant="4" id="8Tr-Tm-lFg"/>
+                                                <constraint firstAttribute="bottom" secondItem="ybQ-ab-Pi6" secondAttribute="bottom" constant="4" id="GDQ-gf-CqA"/>
+                                                <constraint firstAttribute="trailing" secondItem="ybQ-ab-Pi6" secondAttribute="trailing" constant="16" id="NDK-0M-IC6"/>
+                                                <constraint firstItem="ybQ-ab-Pi6" firstAttribute="leading" secondItem="v9B-dl-q77" secondAttribute="leading" constant="20" id="pIY-hs-c3a"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cityLabel" destination="1Ae-Md-UIo" id="YOF-J7-4tN"/>
+                                            <outlet property="tempLabel" destination="1Ae-Md-UIo" id="Hy5-Kn-Sd4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Hnt-ps-oiH" secondAttribute="trailing" id="IRm-vE-myX"/>
+                            <constraint firstItem="Hnt-ps-oiH" firstAttribute="top" secondItem="bKa-fJ-ai0" secondAttribute="top" id="KW6-Zx-Fza"/>
+                            <constraint firstItem="Hnt-ps-oiH" firstAttribute="leading" secondItem="bKa-fJ-ai0" secondAttribute="leading" id="MbE-uc-xyJ"/>
+                            <constraint firstItem="T36-ru-rTx" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" id="cPc-Db-ttK"/>
+                            <constraint firstItem="T36-ru-rTx" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" id="cmU-bD-otp"/>
+                            <constraint firstAttribute="bottom" secondItem="Hnt-ps-oiH" secondAttribute="bottom" id="iul-k7-mNY"/>
+                            <constraint firstItem="Ls2-k4-DPI" firstAttribute="bottom" secondItem="T36-ru-rTx" secondAttribute="bottom" id="rd9-QO-CIv"/>
+                            <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="T36-ru-rTx" secondAttribute="trailing" id="wGU-v3-8U8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ls2-k4-DPI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yfG-gr-W3a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185.625" y="113.75"/>
+        </scene>
         <!--Weather View Controller-->
         <scene sceneID="jHG-sL-gTV">
             <objects>
@@ -546,157 +630,96 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="GFd-Zv-hbi">
-                                <rect key="frame" x="40" y="76" width="240" height="371"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="158-eP-yUI">
+                                <rect key="frame" x="20" y="100" width="280" height="253"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lmR-Pe-Giz">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="35"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the name of the city" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jb-gY-AaH">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="mXY-8i-rsI"/>
+                                            <constraint firstAttribute="height" constant="30" id="0AJ-DW-SRU"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Paris">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IH-VC-NfO">
-                                        <rect key="frame" x="0.0" y="42" width="240" height="35"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Paris" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yxv-CY-VEx">
+                                        <rect key="frame" x="0.0" y="49" width="280" height="34"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="didPresCityTextField:" destination="hMc-WA-xf5" eventType="editingDidEnd" id="hTh-rx-b7o"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the first two letter of the country" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HC9-1G-hZ9">
+                                        <rect key="frame" x="0.0" y="102" width="280" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="kRL-5z-cMv"/>
+                                            <constraint firstAttribute="height" constant="45" id="w9b-cd-AvR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Lyon">
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="fr" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GFi-aY-MaT">
+                                        <rect key="frame" x="0.0" y="166" width="280" height="34"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="didPressCountryTextField:" destination="hMc-WA-xf5" eventType="editingDidEnd" id="52t-Bt-D5x"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1r-uJ-bEO">
+                                        <rect key="frame" x="0.0" y="219" width="280" height="34"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <state key="normal" title="Add this city to the list">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="didPressLyonButton:" destination="hMc-WA-xf5" eventType="touchUpInside" id="QJu-Jb-bLZ"/>
+                                            <action selector="didPressAddButton:" destination="hMc-WA-xf5" eventType="touchUpInside" id="THb-un-d7v"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDP-1d-BOD">
-                                        <rect key="frame" x="0.0" y="84" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="CNu-Pz-mNY"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Nantes">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlH-bb-F2m">
-                                        <rect key="frame" x="0.0" y="126" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="5bD-bD-qJB"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Barcelona">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fx7-za-f2w">
-                                        <rect key="frame" x="0.0" y="168" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="w76-WB-Sph"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Warsaw">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvN-wG-Mop">
-                                        <rect key="frame" x="0.0" y="210" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="Bb4-lR-4yS"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Amsterdam">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nb-7N-GWU">
-                                        <rect key="frame" x="0.0" y="252" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="yog-XI-IFZ"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Brussels">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u66-Xb-4eX">
-                                        <rect key="frame" x="0.0" y="294" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="2yw-b0-DsD"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Lausanne">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkk-zT-mVv">
-                                        <rect key="frame" x="0.0" y="336" width="240" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="6yQ-rb-Xvj"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
-                                        <state key="normal" title="Tel Aviv">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="8Nb-7N-GWU" secondAttribute="trailing" id="AWc-H0-Rot"/>
-                                    <constraint firstItem="lmR-Pe-Giz" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="DAW-eM-MO0"/>
-                                    <constraint firstItem="zlH-bb-F2m" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="DTn-ee-O9i"/>
-                                    <constraint firstItem="pDP-1d-BOD" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="EaO-RX-1xH"/>
-                                    <constraint firstItem="8Nb-7N-GWU" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="IQZ-qr-Ua6"/>
-                                    <constraint firstItem="KvN-wG-Mop" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="QrG-0T-GeQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Tkk-zT-mVv" secondAttribute="trailing" id="R0r-o3-JJr"/>
-                                    <constraint firstItem="4IH-VC-NfO" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="WK8-qA-kmh"/>
-                                    <constraint firstAttribute="trailing" secondItem="4IH-VC-NfO" secondAttribute="trailing" id="WQj-JL-Aev"/>
-                                    <constraint firstItem="u66-Xb-4eX" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="aft-cB-z7M"/>
-                                    <constraint firstItem="fx7-za-f2w" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="jQM-FG-P8U"/>
-                                    <constraint firstAttribute="trailing" secondItem="zlH-bb-F2m" secondAttribute="trailing" id="l9L-xy-MxM"/>
-                                    <constraint firstAttribute="trailing" secondItem="u66-Xb-4eX" secondAttribute="trailing" id="nSk-uY-wIh"/>
-                                    <constraint firstAttribute="trailing" secondItem="fx7-za-f2w" secondAttribute="trailing" id="okU-hy-Ueu"/>
-                                    <constraint firstAttribute="trailing" secondItem="pDP-1d-BOD" secondAttribute="trailing" id="vnU-dI-soD"/>
-                                    <constraint firstAttribute="trailing" secondItem="lmR-Pe-Giz" secondAttribute="trailing" id="xrW-03-b2V"/>
-                                    <constraint firstItem="Tkk-zT-mVv" firstAttribute="leading" secondItem="GFd-Zv-hbi" secondAttribute="leading" id="yNu-Ix-wLL"/>
-                                    <constraint firstAttribute="trailing" secondItem="KvN-wG-Mop" secondAttribute="trailing" id="yy8-ye-1sZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="yxv-CY-VEx" secondAttribute="trailing" id="2SL-uT-XrZ"/>
+                                    <constraint firstItem="GFi-aY-MaT" firstAttribute="leading" secondItem="158-eP-yUI" secondAttribute="leading" id="2dw-fC-LPG"/>
+                                    <constraint firstAttribute="trailing" secondItem="6jb-gY-AaH" secondAttribute="trailing" id="91P-Pr-iON"/>
+                                    <constraint firstItem="6jb-gY-AaH" firstAttribute="leading" secondItem="158-eP-yUI" secondAttribute="leading" id="9yX-dH-aRd"/>
+                                    <constraint firstItem="HC9-1G-hZ9" firstAttribute="leading" secondItem="158-eP-yUI" secondAttribute="leading" id="GDX-ht-Ma5"/>
+                                    <constraint firstItem="M1r-uJ-bEO" firstAttribute="leading" secondItem="158-eP-yUI" secondAttribute="leading" id="GaG-Zp-212"/>
+                                    <constraint firstItem="yxv-CY-VEx" firstAttribute="leading" secondItem="158-eP-yUI" secondAttribute="leading" id="JmX-2W-nb8"/>
+                                    <constraint firstAttribute="trailing" secondItem="M1r-uJ-bEO" secondAttribute="trailing" id="TV4-qk-MGh"/>
+                                    <constraint firstAttribute="trailing" secondItem="GFi-aY-MaT" secondAttribute="trailing" id="Vrz-7R-Mmr"/>
+                                    <constraint firstItem="6jb-gY-AaH" firstAttribute="top" secondItem="158-eP-yUI" secondAttribute="top" id="gQB-Ij-3wB"/>
+                                    <constraint firstAttribute="trailing" secondItem="HC9-1G-hZ9" secondAttribute="trailing" id="hj9-x7-XQz"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="158-eP-yUI" firstAttribute="top" secondItem="Pdi-ib-kVh" secondAttribute="bottom" constant="40" id="2PY-bt-AQa"/>
                             <constraint firstAttribute="bottom" secondItem="gEI-ts-WE1" secondAttribute="bottom" id="4Mp-NT-zfi"/>
-                            <constraint firstItem="GFd-Zv-hbi" firstAttribute="centerX" secondItem="Qyq-tl-maK" secondAttribute="centerX" id="AdI-FG-FIp"/>
                             <constraint firstItem="gEI-ts-WE1" firstAttribute="leading" secondItem="Qyq-tl-maK" secondAttribute="leading" id="BCR-PY-3x1"/>
-                            <constraint firstItem="GFd-Zv-hbi" firstAttribute="top" secondItem="Pdi-ib-kVh" secondAttribute="bottom" constant="16" id="HCI-4i-mUg"/>
                             <constraint firstItem="Pdi-ib-kVh" firstAttribute="leading" secondItem="Qyq-tl-maK" secondAttribute="leading" constant="20" id="M7N-TI-tqH"/>
-                            <constraint firstItem="Qyq-tl-maK" firstAttribute="trailing" secondItem="GFd-Zv-hbi" secondAttribute="trailing" constant="40" id="Nbu-sm-9Up"/>
                             <constraint firstItem="gEI-ts-WE1" firstAttribute="top" secondItem="8N1-EO-Mpo" secondAttribute="top" id="PSl-cc-iMr"/>
+                            <constraint firstItem="158-eP-yUI" firstAttribute="leading" secondItem="Qyq-tl-maK" secondAttribute="leading" constant="20" id="PgZ-dS-ppf"/>
+                            <constraint firstAttribute="trailing" secondItem="158-eP-yUI" secondAttribute="trailing" constant="20" id="bIh-6I-s5G"/>
                             <constraint firstItem="Pdi-ib-kVh" firstAttribute="centerX" secondItem="gEI-ts-WE1" secondAttribute="centerX" id="eCH-fH-pdy"/>
-                            <constraint firstItem="GFd-Zv-hbi" firstAttribute="leading" secondItem="Qyq-tl-maK" secondAttribute="leading" constant="40" id="mth-lG-3Zh"/>
                             <constraint firstItem="Pdi-ib-kVh" firstAttribute="top" secondItem="Qyq-tl-maK" secondAttribute="top" constant="20" id="stu-MX-K7K"/>
                             <constraint firstItem="Qyq-tl-maK" firstAttribute="trailing" secondItem="gEI-ts-WE1" secondAttribute="trailing" id="x0P-2B-Gl8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qyq-tl-maK"/>
                     </view>
                     <connections>
-                        <outlet property="amsterdamButton" destination="KvN-wG-Mop" id="zyw-Ep-SKD"/>
-                        <outlet property="barcelonaButton" destination="zlH-bb-F2m" id="8cR-Db-jyE"/>
-                        <outlet property="brusselsButton" destination="8Nb-7N-GWU" id="jdg-Cz-X2q"/>
-                        <outlet property="lausanneButton" destination="u66-Xb-4eX" id="Bbp-uC-FLc"/>
-                        <outlet property="lyonButton" destination="4IH-VC-NfO" id="XAs-gr-O0r"/>
-                        <outlet property="nantesButton" destination="pDP-1d-BOD" id="ae8-C4-ltk"/>
-                        <outlet property="parisButton" destination="lmR-Pe-Giz" id="jT0-Vm-WQj"/>
-                        <outlet property="telAvivButton" destination="Tkk-zT-mVv" id="11n-aL-i1b"/>
+                        <outlet property="addButton" destination="M1r-uJ-bEO" id="ZxW-Ee-2Q0"/>
+                        <outlet property="cityLabel" destination="6jb-gY-AaH" id="fhe-Ud-g26"/>
+                        <outlet property="cityTextField" destination="yxv-CY-VEx" id="LYm-Wf-akt"/>
+                        <outlet property="countryLabel" destination="HC9-1G-hZ9" id="THE-67-fWc"/>
+                        <outlet property="countryTextField" destination="GFi-aY-MaT" id="wpP-oK-On8"/>
                         <outlet property="titleLabel" destination="Pdi-ib-kVh" id="RSX-IV-7ZC"/>
-                        <outlet property="warsawButton" destination="fx7-za-f2w" id="VCT-wO-skH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8D-AZ-HG5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2237" y="114"/>
+            <point key="canvasLocation" x="2236.875" y="113.75"/>
         </scene>
     </scenes>
     <resources>
