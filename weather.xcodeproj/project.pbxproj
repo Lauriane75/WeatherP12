@@ -273,8 +273,8 @@
 		F665DA14240D7C14000BBA59 /* CityListWeather */ = {
 			isa = PBXGroup;
 			children = (
-				F665DA15240D7C28000BBA59 /* CityListViewModel.swift */,
 				F665DA17240D7D23000BBA59 /* CityListViewController.swift */,
+				F665DA15240D7C28000BBA59 /* CityListViewModel.swift */,
 				F665DA19240D7E90000BBA59 /* CityDataSource.swift */,
 				F665DA1D240D7FFF000BBA59 /* Cell */,
 			);

@@ -35,7 +35,7 @@ private class TabBarSource: TabBarSourceType {
     ]
 
     init() {
-        self[.weather].tabBarItem.image = UIImage(systemName: "sun.max")
+        self[.weather].tabBarItem.image = UIImage(systemName: "list.bullet")
         self[.selectCity].tabBarItem.image = UIImage(systemName: "plus.circle")
     }
 }

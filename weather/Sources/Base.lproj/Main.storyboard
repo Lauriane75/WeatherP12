@@ -19,6 +19,9 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky" translatesAutoresizingMaskIntoConstraints="NO" id="Hnt-ps-oiH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="J29-Gm-7ES">
+                                <rect key="frame" x="150" y="230" width="20" height="20"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T36-ru-rTx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -76,9 +79,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="J29-Gm-7ES" firstAttribute="centerY" secondItem="bKa-fJ-ai0" secondAttribute="centerY" id="93U-AW-Vf5"/>
                             <constraint firstAttribute="trailing" secondItem="Hnt-ps-oiH" secondAttribute="trailing" id="IRm-vE-myX"/>
                             <constraint firstItem="Hnt-ps-oiH" firstAttribute="top" secondItem="bKa-fJ-ai0" secondAttribute="top" id="KW6-Zx-Fza"/>
                             <constraint firstItem="Hnt-ps-oiH" firstAttribute="leading" secondItem="bKa-fJ-ai0" secondAttribute="leading" id="MbE-uc-xyJ"/>
+                            <constraint firstItem="J29-Gm-7ES" firstAttribute="centerX" secondItem="bKa-fJ-ai0" secondAttribute="centerX" id="OTQ-q4-yTh"/>
                             <constraint firstItem="T36-ru-rTx" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" id="cPc-Db-ttK"/>
                             <constraint firstItem="T36-ru-rTx" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" id="cmU-bD-otp"/>
                             <constraint firstAttribute="bottom" secondItem="Hnt-ps-oiH" secondAttribute="bottom" id="iul-k7-mNY"/>
@@ -87,6 +92,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ls2-k4-DPI"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="J29-Gm-7ES" id="lU5-3P-zba"/>
+                        <outlet property="tableView" destination="T36-ru-rTx" id="JZ8-7m-0iG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfG-gr-W3a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

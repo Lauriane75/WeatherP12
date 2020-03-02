@@ -28,6 +28,9 @@ class SelectCityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+        view.addGestureRecognizer(tap)
+
         navigationBarCustom()
 
         elementCustom()
@@ -35,6 +38,12 @@ class SelectCityViewController: UIViewController {
         bind(to: viewModel)
         viewModel.viewDidLoad()
     }
+
+    deinit {
+         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+     }
 
     // MARK: - Private Functions
 
@@ -84,10 +93,42 @@ class SelectCityViewController: UIViewController {
     }
 
     func elementCustom() {
-        //        cityButtons.forEach {
-        //            $0?.layer.borderWidth = 1
-        //            $0?.layer.borderColor = UIColor.white.cgColor
-        //            $0?.layer.cornerRadius = 15
-        //        }
+        addButton.layer.borderWidth = 1
+        addButton.layer.borderColor = UIColor.white.cgColor
+        addButton.layer.cornerRadius = 15
+    }
+
+    /// HideKeyBoard from textField
+    @objc private func hideKeyBoard() {
+        cityTextField.resignFirstResponder()
+        countryTextField.resignFirstResponder()
+        addButton.resignFirstResponder()
+    }
+
+    fileprivate func settingNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+
+    @objc private func keyboardWillChange(notification: Notification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+
+        if notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification {
+            view.frame.origin.y = -(keyboardHeight/2)
+        } else {
+            view.frame.origin.y = 0
+        }
+    }
+
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyBoard()
+        return true
     }
 }

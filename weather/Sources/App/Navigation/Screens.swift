@@ -24,7 +24,7 @@ final class Screens {
 // MARK: - Main
 
 extension Screens {
-    func createMainViewController(delegate: CityListViewModelDelegate?) -> UIViewController {
+    func createCityViewController(delegate: CityListViewModelDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
             "CityListViewController") as! CityListViewController
         let repository = WeatherRepository(client: context.client,
@@ -36,31 +36,18 @@ extension Screens {
     }
 }
 
-//extension Screens {
-//    func createMainViewController(delegate: WeatherViewModelDelegate?) -> UIViewController {
-//        let viewController = storyboard.instantiateViewController(withIdentifier:
-//            "WeatherViewController") as! WeatherViewController
-//        let repository = WeatherRepository(client: context.client,
-//                                           stack: stack)
-//        let viewModel = WeatherViewModel(repository: repository,
-//                                         delegate: delegate)
-//        viewController.viewModel = viewModel
-//        return viewController
-//    }
-//}
-
-//extension Screens {
-//    func creatWeatherCityViewController(delegate: WeatherViewModelDelegate?, cityName: String, country: String) -> UIViewController {
-//        let viewController = storyboard.instantiateViewController(withIdentifier:
-//            "WeatherViewController") as! WeatherViewController
-//        let repository = WeatherRepository(client: context.client,
-//                                           stack: stack)
-//        let viewModel = WeatherViewModel(repository: repository,
-//                                         delegate: delegate)
-//        viewController.viewModel = viewModel
-//        return viewController
-//    }
-//}
+extension Screens {
+    func createDaysWeatherViewController(delegate: WeatherViewModelDelegate?) -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier:
+            "WeatherViewController") as! WeatherViewController
+        let repository = WeatherRepository(client: context.client,
+                                           stack: stack)
+        let viewModel = WeatherViewModel(repository: repository,
+                                         delegate: delegate)
+        viewController.viewModel = viewModel
+        return viewController
+    }
+}
 
 // MARK: - Select City
 

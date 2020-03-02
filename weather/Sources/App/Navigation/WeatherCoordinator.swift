@@ -30,27 +30,34 @@ final class WeatherCoordinator {
     }
 
     private func showHome() {
-        let viewController = screens.createMainViewController(delegate: self)
+        let viewController = screens.createCityViewController(delegate: self)
         presenter.viewControllers = [viewController]
     }
 
-//    private func showWeather(nameCity: String, country: String) {
-//          let viewController = screens.createMainViewController(delegate: self)
-//          presenter.viewControllers = [viewController]
-//    }
-
-    private func showAlert(for type: AlertType) {
-        let alert = screens.createAlertView(for: type)
-        presenter.visibleViewController?.present(alert, animated: true, completion: nil)
+    private func showDaysWeather() {
+        let viewController = screens.createDaysWeatherViewController(delegate: self)
+        presenter.pushViewController(viewController, animated: true)
     }
 
     private func showWeatherDayDetail(weatherDay: WeatherItem) {
         let viewController = screens.createWeatherDetailViewController(selectedWeatherItem: weatherDay, delegate: self)
         presenter.pushViewController(viewController, animated: true)
     }
+
+    private func showAlert(for type: AlertType) {
+        let alert = screens.createAlertView(for: type)
+        presenter.visibleViewController?.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension WeatherCoordinator: CityListViewModelDelegate {
+    func didSelectCity(item: WeatherItem) {
+        showDaysWeather()
+    }
+    func displayAlert(for type: AlertType) {
+
+    }
+
 }
 
 extension WeatherCoordinator: WeatherViewModelDelegate {
@@ -68,9 +75,3 @@ extension WeatherCoordinator: WeatherViewModelDelegate {
 extension WeatherCoordinator: DetailWeatherDayViewModelDelegate {
     // To do: - Would implement this later
 }
-
-//extension WeatherCoordinator: SelectCityViewModelDelegate {
-//    func didSelectCity(nameCity: String, country: String) {
-//
-//    }
-//}
