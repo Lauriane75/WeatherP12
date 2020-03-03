@@ -10,10 +10,12 @@ import CoreData
 
 protocol WeatherRepositoryType: class {
     func saveWeatherItems(items: WeatherItem)
-    func saveCityItems(nameCity: String, country: String)
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
-    func deleteInDataBase(timeWeather: String)
+
+    func getCityItems(callback: @escaping (_ nameCity: [String], _ country: [String]) -> Void)
+    func deleteWeatherItemsInDataBase(timeWeather: String)
     func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
+    func saveCityItems(nameCity: String, country: String)
 }
 
 final class WeatherRepository: WeatherRepositoryType {
@@ -108,7 +110,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Delete from coredata
 
-    func deleteInDataBase(timeWeather: String) {
+    func deleteWeatherItemsInDataBase(timeWeather: String) {
         let request: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
         guard request.entityName != nil else { return }
         request.predicate = NSPredicate(format: "timeWeather == %@", timeWeather)

@@ -56,6 +56,7 @@ final class SelectCityViewModel {
 
     func didPressAddCity(nameCity: String, country: String) {
         delegate?.didPressAddCity(nameCity: nameCity, country: country)
+        repository.saveCityItems(nameCity: nameCity, country: country)
     }
 }
 

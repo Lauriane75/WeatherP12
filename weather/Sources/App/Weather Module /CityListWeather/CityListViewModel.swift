@@ -58,24 +58,27 @@ final class CityListViewModel {
 
     fileprivate func showFiveDaysWeather() {
         isLoading?(true)
-        repository.getCityWeather(nameCity: "paris", country: "fr", callback: { [weak self] weather in
-            guard let self = self else { return }
-            self.isLoading?(false)
-            switch weather {
-            case .success(value: let items):
-                guard !items.isEmpty else {
+
+        repository.getCityItems { (nameCity, country) in
+            self.repository.getCityWeather(nameCity: "paris", country: "fr", callback: { [weak self] weather in
+                guard let self = self else { return }
+                self.isLoading?(false)
+                switch weather {
+                case .success(value: let items):
+                    guard !items.isEmpty else {
+                        self.delegate?.displayAlert(for: .errorService)
+                        return
+                    }
+                    self.initialize(items: items)
+                    guard !items.isEmpty else {
+                        self.delegate?.displayAlert(for: .errorService)
+                        return
+                    }
+                case .error:
                     self.delegate?.displayAlert(for: .errorService)
-                    return
                 }
-                self.initialize(items: items)
-                guard !items.isEmpty else {
-                    self.delegate?.displayAlert(for: .errorService)
-                    return
-                }
-            case .error:
-                self.delegate?.displayAlert(for: .errorService)
-            }
-        })
+            })
+        }
     }
 
     private func initialize(items: [WeatherItem]) {

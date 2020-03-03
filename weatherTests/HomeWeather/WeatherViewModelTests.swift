@@ -41,7 +41,7 @@ class MockWeatherRepository: WeatherRepositoryType {
         callback(weatherItems!)
     }
 
-    func deleteInDataBase(timeWeather: String) {
+    func deleteWeatherItemsInDataBase(timeWeather: String) {
 
     }
 

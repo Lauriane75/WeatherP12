@@ -68,29 +68,31 @@ final class WeatherViewModel {
 
     fileprivate func showFiveDaysWeather() {
         isLoading?(true)
-        repository.getCityWeather(nameCity: "paris", country: "fr", callback: { [weak self] weather in
-            guard let self = self else { return }
-            self.isLoading?(false)
-            switch weather {
-            case .success(value: let items):
-                guard !items.isEmpty else {
+        repository.getCityItems { (nameCity, country) in
+            self.repository.getCityWeather(nameCity: "paris", country: "fr", callback: { [weak self] weather in
+                guard let self = self else { return }
+                self.isLoading?(false)
+                switch weather {
+                case .success(value: let items):
+                    guard !items.isEmpty else {
+                        self.delegate?.displayWeatherAlert(for: .errorService)
+                        return
+                    }
+                    self.displayHeaderLabels(items)
+                    self.initialize(items: items)
+                    self.deleteInDataBase(items)
+                    self.saveInDataBase(items)
+                    guard !items.isEmpty else {
+                        self.delegate?.displayWeatherAlert(for: .errorService)
+                        return
+                    }
+                    self.displayHeaderLabels(items)
+                    self.initialize(items: items)
+                case .error:
                     self.delegate?.displayWeatherAlert(for: .errorService)
-                    return
                 }
-                self.displayHeaderLabels(items)
-                self.initialize(items: items)
-                self.deleteInDataBase(items)
-                self.saveInDataBase(items)
-                guard !items.isEmpty else {
-                    self.delegate?.displayWeatherAlert(for: .errorService)
-                    return
-                }
-                self.displayHeaderLabels(items)
-                self.initialize(items: items)
-            case .error:
-                self.delegate?.displayWeatherAlert(for: .errorService)
-            }
-        })
+            })
+        }
     }
 
     private func initialize(items: [WeatherItem]) {
@@ -121,7 +123,7 @@ final class WeatherViewModel {
     private func deleteInDataBase(_ items: ([WeatherItem])) {
         DispatchQueue.main.async {
             items.enumerated().forEach { _, index in
-                self.repository.deleteInDataBase(timeWeather: index.time)
+                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
             }
         }
     }
