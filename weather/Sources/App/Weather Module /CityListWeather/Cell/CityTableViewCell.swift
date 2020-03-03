@@ -13,6 +13,7 @@ final class CityTableViewCell: UITableViewCell {
     // MARK: - Outlet
 
     @IBOutlet weak var cityLabel: UILabel!
+
     @IBOutlet weak var tempLabel: UILabel!
 
     // MARK: - Configure
@@ -20,7 +21,6 @@ final class CityTableViewCell: UITableViewCell {
     func configure(with visibleWeather: WeatherItem) {
         cityLabel.text = ""
         tempLabel.text = visibleWeather.temperature
-        print("visibleWeather.temperature = \(visibleWeather.temperature)")
     }
 
     override func prepareForReuse() {

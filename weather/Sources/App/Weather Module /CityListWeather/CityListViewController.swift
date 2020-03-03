@@ -26,7 +26,7 @@ class CityListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationBarCustom()
 
         tableView.delegate = source

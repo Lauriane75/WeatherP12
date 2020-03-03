@@ -20,7 +20,6 @@ final class CityDataSource: NSObject, UITableViewDataSource, UITableViewDelegate
 
     func update(with items: [WeatherItem]) {
         self.items = items
-        print("item.count \(items.count)")
     }
 
     // MARK: - UITableViewDataSource

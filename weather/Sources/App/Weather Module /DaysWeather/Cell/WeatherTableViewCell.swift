@@ -13,9 +13,13 @@ final class WeatherTableViewCell: UITableViewCell {
     // MARK: - Outlets
 
     @IBOutlet private weak var iconImageView: UIImageView!
+
     @IBOutlet private weak var tempMinLabel: UILabel!
+
     @IBOutlet private weak var tempMaxLabel: UILabel!
+
     @IBOutlet private weak var dayLabel: UILabel!
+
     @IBOutlet private weak var tempLabel: UILabel!
 
     // MARK: - Configure
