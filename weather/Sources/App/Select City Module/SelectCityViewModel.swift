@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SelectCityViewModelDelegate: class {
-    func didSelectCity(nameCity: String, country: String)
+    func didPressAddCity(nameCity: String, country: String)
 }
 
 final class SelectCityViewModel {
@@ -54,19 +54,8 @@ final class SelectCityViewModel {
 
     // MARK: - Private Files
 
-    func didSelectCity(nameCity: String, country: String) {
-        delegate?.didSelectCity(nameCity: nameCity, country: country)
-        repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
-            guard self != nil else { return }
-            switch weather {
-            case .success(value: let items):
-                guard !items.isEmpty else {
-                    return
-                }
-            case .error:
-                print("error")
-            }
-        })
+    func didPressAddCity(nameCity: String, country: String) {
+        delegate?.didPressAddCity(nameCity: nameCity, country: country)
     }
 }
 

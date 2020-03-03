@@ -14,61 +14,61 @@ protocol WeatherViewModelDelegate: class {
 }
 
 final class WeatherViewModel {
-    
+
     // MARK: - Properties
-    
+
     private let repository: WeatherRepositoryType
-    
+
     private weak var delegate: WeatherViewModelDelegate?
-    
+
     private var weatherItems: [WeatherItem] = [] {
         didSet {
             self.visibleItems?(self.weatherItems)
         }
     }
-    
+
     private let timeWeatherDay = "12:00:00"
-    
+
     // MARK: - Initializer
-    
+
     init(repository: WeatherRepositoryType, delegate: WeatherViewModelDelegate?) {
         self.repository = repository
         self.delegate = delegate
     }
-    
+
     // MARK: - Outputs
-    
+
     var cityText: ((String) -> Void)?
-    
+
     var nowText: ((String) -> Void)?
-    
+
     var visibleItems: (([WeatherItem]) -> Void)?
-    
+
     var tempText: ((String) -> Void)?
-    
+
     var iconText: ((String) -> Void)?
-    
+
     var isLoading: ((Bool) -> Void)?
-    
+
     // MARK: - Inputs
-    
+
     func viewDidLoad() {
         cityText?("Paris")
         nowText?("Now")
         showFiveDaysWeather()
     }
-    
+
     func didSelectWeatherDay(at index: Int) {
         guard !self.weatherItems.isEmpty, index < self.weatherItems.count else { return }
         let item = self.weatherItems[index]
         self.delegate?.didSelect(item: item)
     }
-    
+
     // MARK: - Private Files
-    
+
     fileprivate func showFiveDaysWeather() {
         isLoading?(true)
-        repository.getWeather(callback: { [weak self] weather in
+        repository.getCityWeather(nameCity: "paris", country: "fr", callback: { [weak self] weather in
             guard let self = self else { return }
             self.isLoading?(false)
             switch weather {
@@ -92,7 +92,7 @@ final class WeatherViewModel {
             }
         })
     }
-    
+
     private func initialize(items: [WeatherItem]) {
         let items = items.filter { $0.time.contains(self.timeWeatherDay) }
         if items.isEmpty {
@@ -100,7 +100,7 @@ final class WeatherViewModel {
         }
         weatherItems = items
     }
-    
+
     private func displayHeaderLabels(_ items: ([WeatherItem])) {
         guard
             let tempNow = items.first?.temperature,
@@ -109,7 +109,7 @@ final class WeatherViewModel {
         tempText?("\(tempNow)")
         iconText?("\(iconNow)" )
     }
-    
+
     private func saveInDataBase(_ items: ([WeatherItem])) {
         DispatchQueue.main.async {
             items.enumerated().forEach { _, index in
@@ -117,7 +117,7 @@ final class WeatherViewModel {
             }
         }
     }
-    
+
     private func deleteInDataBase(_ items: ([WeatherItem])) {
         DispatchQueue.main.async {
             items.enumerated().forEach { _, index in

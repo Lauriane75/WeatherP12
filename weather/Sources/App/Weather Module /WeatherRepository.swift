@@ -9,8 +9,8 @@
 import CoreData
 
 protocol WeatherRepositoryType: class {
-    func getWeather(callback: @escaping (Result<[WeatherItem]>) -> Void)
     func saveWeatherItems(items: WeatherItem)
+    func saveCityItems(nameCity: String, country: String)
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
     func deleteInDataBase(timeWeather: String)
     func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
@@ -33,8 +33,10 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Get from openWeather API
 
-    func getWeather(callback: @escaping (Result<[WeatherItem]>) -> Void) {
-        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?q=Paris,fr&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
+    func getCityWeather(nameCity: String, country: String,
+                        callback: @escaping (Result<[WeatherItem]>) -> Void) {
+        let stringUrl =
+        "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
 
         guard let url = URL(string: stringUrl) else { return }
         client.request(type: Weather.self,
@@ -42,57 +44,25 @@ final class WeatherRepository: WeatherRepositoryType {
                        url: url,
                        cancelledBy: token) { weather in
 
-            switch weather {
+                        switch weather {
 
-            case .success(value: let weatheritems):
-                let items: [WeatherItem] = weatheritems.forecasts.map { item in
-                    return WeatherItem(item: item) }
-                callback(.success(value: (items)))
+                        case .success(value: let weatheritems):
+                            let items: [WeatherItem] = weatheritems.forecasts.map { item in
+                                return WeatherItem(item: item) }
+                            callback(.success(value: (items)))
 
-            case .error(error: let error):
-                let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
-                if let weather = try? self.stack.context.fetch(requestWeather) {
-                    let items: [WeatherItem] = weather.map {
-                        return WeatherItem(object: $0) }
-                    callback(.success(value: (items)))
-                } else {
-                    callback(.error(error: error))
-                }
-            }
+                        case .error(error: let error):
+                            let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
+                            if let weather = try? self.stack.context.fetch(requestWeather) {
+                                let items: [WeatherItem] = weather.map {
+                                    return WeatherItem(object: $0) }
+                                callback(.success(value: (items)))
+                            } else {
+                                callback(.error(error: error))
+                            }
+                        }
         }
     }
-
-    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void) {
-        let stringUrl =
-        "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
-
-        print("url = \(stringUrl)")
-
-          guard let url = URL(string: stringUrl) else { return }
-          client.request(type: Weather.self,
-                         requestType: .GET,
-                         url: url,
-                         cancelledBy: token) { weather in
-
-              switch weather {
-
-              case .success(value: let weatheritems):
-                  let items: [WeatherItem] = weatheritems.forecasts.map { item in
-                      return WeatherItem(item: item) }
-                  callback(.success(value: (items)))
-
-              case .error(error: let error):
-                  let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
-                  if let weather = try? self.stack.context.fetch(requestWeather) {
-                      let items: [WeatherItem] = weather.map {
-                          return WeatherItem(object: $0) }
-                      callback(.success(value: (items)))
-                  } else {
-                      callback(.error(error: error))
-                  }
-              }
-          }
-      }
 
     // MARK: - Save in coredata
 
@@ -110,6 +80,14 @@ final class WeatherRepository: WeatherRepositoryType {
         stack.saveContext()
     }
 
+    func saveCityItems(nameCity: String, country: String) {
+        let cityObject = CityObject(context: stack.context)
+        cityObject.nameCity = nameCity
+        cityObject.countryCity = country
+
+        stack.saveContext()
+    }
+
     // MARK: - Get from coredata
 
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void) {
@@ -117,6 +95,15 @@ final class WeatherRepository: WeatherRepositoryType {
         guard let weatherItems = try? stack.context.fetch(requestWeather) else { return }
         let weather: [WeatherItem] = weatherItems.map { return WeatherItem(object: $0) }
         callback(weather)
+    }
+
+    func getCityItems(callback: @escaping (_ nameCity: [String], _ country: [String]) -> Void) {
+        let requestCity: NSFetchRequest<CityObject> = CityObject.fetchRequest()
+        guard let cityItems = try? stack.context.fetch(requestCity) else { return }
+        let cityName: [String] = cityItems.map { return ($0.nameCity ?? "paris") }
+        let country: [String] = cityItems.map { return ($0.countryCity ?? "fr") }
+
+        callback(cityName, country)
     }
 
     // MARK: - Delete from coredata

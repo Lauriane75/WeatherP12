@@ -80,7 +80,7 @@ class SelectCityViewController: UIViewController {
     @IBAction func didPressAddButton(_ sender: Any) {
         guard let city = cityTextField.text else { return }
         guard let country = countryTextField.text else { return }
-        viewModel.didSelectCity(nameCity: city, country: country)
+        viewModel.didPressAddCity(nameCity: city, country: country)
     }
 
     // MARK: - Private Files
@@ -96,6 +96,8 @@ class SelectCityViewController: UIViewController {
         addButton.layer.borderWidth = 1
         addButton.layer.borderColor = UIColor.white.cgColor
         addButton.layer.cornerRadius = 15
+        cityTextField.layer.cornerRadius = 15
+        countryTextField.layer.cornerRadius = 15
     }
 
     /// HideKeyBoard from textField

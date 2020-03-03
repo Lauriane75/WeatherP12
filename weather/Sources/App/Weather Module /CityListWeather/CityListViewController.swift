@@ -26,7 +26,7 @@ class CityListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationBarCustom()
 
         tableView.delegate = source
@@ -72,6 +72,6 @@ class CityListViewController: UIViewController {
         guard let bar = navigationController?.navigationBar else { return }
         bar.setBackgroundImage(UIImage(), for: .default)
         bar.shadowImage = UIImage()
-        bar.alpha = 0.0
+        bar.tintColor = .white
     }
 }
