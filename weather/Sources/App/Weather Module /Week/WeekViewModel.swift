@@ -57,7 +57,7 @@ final class WeekViewModel {
 
     func viewDidLoad() {
         nowText?("Now")
-        showFiveDaysWeather()
+        showWeekWeather()
     }
 
     func didSelectWeatherDay(at index: Int) {
@@ -68,14 +68,14 @@ final class WeekViewModel {
 
     // MARK: - Private Files
 
-    fileprivate func showFiveDaysWeather() {
-        repository.getWeatherItems { [weak self] (item) in
+    fileprivate func showWeekWeather() {
+        isLoading?(true)
+        repository.getWeatherItems { [weak self] (items) in
+            print("item = \(items)")
             guard let self = self else { return }
-            guard item != [] else {
-                self.delegate?.displayWeatherAlert(for: .errorService)
-                return
-            }
-            self.visibleItems?(item.filter { $0.time.contains(self.selectedWeatherItem.time.dayFormat) })
+            self.isLoading?(false)
+            self.displayHeaderLabels(items)
+            self.initialize(items: items)
         }
     }
 
@@ -90,25 +90,27 @@ final class WeekViewModel {
     private func displayHeaderLabels(_ items: ([WeatherItem])) {
         guard
             let tempNow = items.first?.temperature,
-            let iconNow = items.first?.iconID
+            let iconNow = items.first?.iconID,
+            let city = items.first?.nameCity
             else { return }
         tempText?("\(tempNow)")
         iconText?("\(iconNow)" )
+        cityText?("\(city)")
     }
 
-    private func saveInDataBase(_ items: ([WeatherItem])) {
-        DispatchQueue.main.async {
-            items.enumerated().forEach { _, index in
-                self.repository.saveWeatherItem(weatherItem: index)
-            }
-        }
-    }
-
-    private func deleteInDataBase(_ items: ([WeatherItem])) {
-        DispatchQueue.main.async {
-            items.enumerated().forEach { _, index in
-                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
-            }
-        }
-    }
+//    private func saveInDataBase(_ items: ([WeatherItem])) {
+//        DispatchQueue.main.async {
+//            items.enumerated().forEach { _, index in
+//                self.repository.saveWeatherItem(weatherItem: index)
+//            }
+//        }
+//    }
+//
+//    private func deleteInDataBase(_ items: ([WeatherItem])) {
+//        DispatchQueue.main.async {
+//            items.enumerated().forEach { _, index in
+//                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
+//            }
+//        }
+//    }
 }

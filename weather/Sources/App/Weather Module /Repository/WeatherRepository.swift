@@ -11,7 +11,7 @@ import CoreData
 protocol WeatherRepositoryType: class {
 
     // MARK: - Get from openWeather API
-    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void)
 
     // MARK: - Save in coredata
     func saveCityItem(city: CityItem)
@@ -22,7 +22,14 @@ protocol WeatherRepositoryType: class {
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
 
     // MARK: - Delete from coredata
-    func deleteWeatherItemsInDataBase(timeWeather: String)
+    //    func deleteWeatherItemsInDataBase(timeWeather: String)
+    func deleteWeatherItemsInDataBase()
+
+}
+
+enum WeatherOrigin {
+    case web([WeatherItem])
+    case database([WeatherItem])
 }
 
 final class WeatherRepository: WeatherRepositoryType {
@@ -42,10 +49,8 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Get from openWeather API
 
-    func getCityWeather(nameCity: String, country: String,
-                        callback: @escaping (Result<[WeatherItem]>) -> Void) {
-        let stringUrl =
-        "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void) {
+        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
 
         guard let url = URL(string: stringUrl) else { return }
         client.request(type: Weather.self,
@@ -53,27 +58,24 @@ final class WeatherRepository: WeatherRepositoryType {
                        url: url,
                        cancelledBy: token) { weather in
 
-                        switch weather {
+            switch weather {
 
-                        case .success(value: let items):
+            case .success(value: let weatheritems):
+                let items: [WeatherItem] = weatheritems.forecasts.map { item in
+                let cityItem = weatheritems.city
+                    return WeatherItem(weatherItem: item, cityItem: cityItem) }
+                callback(.success(value: .web(items)))
 
-                        let weatherItems: [WeatherItem] = items.forecasts.map { item in
-                            let cityItem = items.city
-
-                            return WeatherItem(weatherItem: item, cityItem: cityItem) }
-
-                            callback(.success(value: (weatherItems)))
-
-                        case .error(error: let error):
-                            let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
-                            if let weather = try? self.stack.context.fetch(requestWeather) {
-                                let items: [WeatherItem] = weather.map {
-                                    return WeatherItem(object: $0) }
-                                callback(.success(value: (items)))
-                            } else {
-                                callback(.error(error: error))
-                            }
-                        }
+            case .error(error: let error):
+                let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
+                if let weather = try? self.stack.context.fetch(requestWeather) {
+                    let items: [WeatherItem] = weather.map {
+                        return WeatherItem(object: $0) }
+                    callback(.success(value: .database(items)))
+                } else {
+                    callback(.error(error: error))
+                }
+            }
         }
     }
 
@@ -81,6 +83,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     func saveWeatherItem(weatherItem: WeatherItem) {
         let weatherObject = WeatherObject(context: stack.context)
+        weatherObject.nameCityWeather = weatherItem.nameCity
         weatherObject.iconWeather = weatherItem.iconID
         weatherObject.timeWeather = weatherItem.time
         weatherObject.tempMinWeather = weatherItem.temperatureMin
@@ -108,6 +111,7 @@ final class WeatherRepository: WeatherRepositoryType {
         guard let weatherItems = try? stack.context.fetch(requestWeather) else { return }
         let weather: [WeatherItem] = weatherItems.map { return WeatherItem(object: $0) }
         callback(weather)
+        //        print(weather)
     }
 
     func getCityItems(callback: @escaping ([CityItem]) -> Void) {
@@ -119,11 +123,9 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Delete from coredata
 
-    func deleteWeatherItemsInDataBase(timeWeather: String) {
+    func deleteWeatherItemsInDataBase() {
         let request: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
         guard request.entityName != nil else { return }
-        request.predicate = NSPredicate(format: "timeWeather == %@", timeWeather)
-
         if let object = try? stack.context.fetch(request), let firstObject = object.first {
             stack.context.delete(firstObject)
             stack.saveContext()
@@ -133,7 +135,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
 extension WeatherItem {
     init(object: WeatherObject) {
-        self.nameCity = object.nameCityWeather ?? "paris"
+        self.nameCity = object.nameCityWeather ?? ""
         self.iconID = object.iconWeather ?? ""
         self.time = object.timeWeather ?? ""
         self.temperatureMin = object.tempMinWeather ?? ""
@@ -148,8 +150,8 @@ extension WeatherItem {
 
 extension CityItem {
     init(object: CityObject) {
-        self.nameCity = object.nameCity ?? "paris"
-        self.country = object.countryCity ?? "fr"
+        self.nameCity = object.nameCity ?? ""
+        self.country = object.countryCity ?? ""
     }
 }
 
@@ -167,3 +169,14 @@ extension WeatherItem {
         self.description = "\(weatherItem.weather.first?.weatherDescription ?? "")"
     }
 }
+
+//    func deleteWeatherItemsInDataBase(timeWeather: String) {
+   //           let request: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
+   //           guard request.entityName != nil else { return }
+   //           request.predicate = NSPredicate(format: "timeWeather == %@", timeWeather)
+   //
+   //           if let object = try? stack.context.fetch(request), let firstObject = object.first {
+   //               stack.context.delete(firstObject)
+   //               stack.saveContext()
+   //           }
+   //       }

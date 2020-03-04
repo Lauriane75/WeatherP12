@@ -26,6 +26,7 @@ final class CityListViewModel {
     private var weatherItems: [WeatherItem] = [] {
         didSet {
             self.visibleWeatherItems?(self.weatherItems)
+            print(self.weatherItems)
         }
     }
 
@@ -65,16 +66,21 @@ final class CityListViewModel {
                     guard let self = self else { return }
                     self.isLoading?(false)
                     switch weather {
-                    case .success(value: let weatherItems):
-                        guard !weatherItems.isEmpty else {
-                            self.delegate?.displayAlert(for: .errorService)
-                            return
-                        }
-                        self.initialize(weatherItems: weatherItems)
-                        self.saveInDataBase(weatherItems)
-                        guard !weatherItems.isEmpty else {
-                            self.delegate?.displayAlert(for: .errorService)
-                            return
+                    case .success(value: let dataOrigin):
+                        switch dataOrigin {
+                        case .web(let items):
+                            guard !items.isEmpty else {
+                                self.delegate?.displayAlert(for: .errorService)
+                                return
+                            }
+                            self.initialize(weatherItems: items)
+                            self.saveInDataBase(items)
+                        case .database(let items):
+                            guard !items.isEmpty else {
+                                self.delegate?.displayAlert(for: .errorService)
+                                return
+                            }
+                            self.initialize(weatherItems: items)
                         }
                     case .error:
                         self.delegate?.displayAlert(for: .errorService)
@@ -100,4 +106,19 @@ final class CityListViewModel {
             }
         }
     }
+
+    private func deleteInDataBase() {
+        DispatchQueue.main.async {
+            self.repository.deleteWeatherItemsInDataBase()
+        }
+    }
 }
+
+//    private func deleteInDataBase(_ items: ([WeatherItem])) {
+//        DispatchQueue.main.async {
+//            items.enumerated().forEach { _, index in
+//                print(index.time)
+//                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
+//            }
+//        }
+//    }
