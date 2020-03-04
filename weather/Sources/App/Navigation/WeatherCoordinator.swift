@@ -26,21 +26,21 @@ final class WeatherCoordinator {
     // MARK: - Coodinator
 
     func start() {
-        showHome()
+        showCityList()
     }
 
-    private func showHome() {
+    private func showCityList() {
         let viewController = screens.createCityViewController(delegate: self)
         presenter.viewControllers = [viewController]
     }
 
-    private func showDaysWeather() {
-        let viewController = screens.createDaysWeatherViewController(delegate: self)
+    private func showWeekWeather(weatherItem: WeatherItem) {
+        let viewController = screens.createDaysWeatherViewController(delegate: self, selectedWeatherItem: weatherItem)
         presenter.pushViewController(viewController, animated: true)
     }
 
-    private func showWeatherDayDetail(weatherDay: WeatherItem) {
-        let viewController = screens.createWeatherDetailViewController(selectedWeatherItem: weatherDay, delegate: self)
+    private func showDetailDayWeather(weatherItem: WeatherItem) {
+        let viewController = screens.createWeatherDetailViewController(selectedWeatherItem: weatherItem, delegate: self)
         presenter.pushViewController(viewController, animated: true)
     }
 
@@ -52,7 +52,7 @@ final class WeatherCoordinator {
 
 extension WeatherCoordinator: CityListViewModelDelegate {
     func didSelectCity(item: WeatherItem) {
-        showDaysWeather()
+        showWeekWeather(weatherItem: item)
     }
     func displayAlert(for type: AlertType) {
 
@@ -60,18 +60,18 @@ extension WeatherCoordinator: CityListViewModelDelegate {
 
 }
 
-extension WeatherCoordinator: WeatherViewModelDelegate {
+extension WeatherCoordinator: WeekViewModelDelegate {
     func displayWeatherAlert(for type: AlertType) {
         DispatchQueue.main.async {
             self.showAlert(for: type)
         }
     }
 
-    func didSelect(item: WeatherItem) {
-        showWeatherDayDetail(weatherDay: item)
+    func didSelectDay(item: WeatherItem) {
+        showDetailDayWeather(weatherItem: item)
     }
 }
 
-extension WeatherCoordinator: DetailWeatherDayViewModelDelegate {
+extension WeatherCoordinator: DetailDayViewModelDelegate {
     // To do: - Would implement this later
 }

@@ -8,23 +8,23 @@
 
 import Foundation
 
-protocol DetailWeatherDayViewModelDelegate: class {
+protocol DetailDayViewModelDelegate: class {
     func displayWeatherAlert(for type: AlertType)
 }
 
-final class DetailWeatherDayViewModel {
+final class DetailDayViewModel {
 
     // MARK: - Properties
 
     private let repository: WeatherRepositoryType
 
-    private weak var delegate: DetailWeatherDayViewModelDelegate?
+    private weak var delegate: DetailDayViewModelDelegate?
 
     private var selectedWeatherItem: WeatherItem
 
     // MARK: - Initializer
 
-    init(repository: WeatherRepositoryType, delegate: DetailWeatherDayViewModelDelegate?, selectedWeatherItem: WeatherItem) {
+    init(repository: WeatherRepositoryType, delegate: DetailDayViewModelDelegate?, selectedWeatherItem: WeatherItem) {
         self.repository = repository
         self.delegate = delegate
         self.selectedWeatherItem = selectedWeatherItem

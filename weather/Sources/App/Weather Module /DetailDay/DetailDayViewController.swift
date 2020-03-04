@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailWeatherDayViewController: UIViewController {
+class DetailDayViewController: UIViewController {
 
     // MARK: - Outlet
 
@@ -24,11 +24,11 @@ class DetailWeatherDayViewController: UIViewController {
 
     // MARK: - Properties
 
-    var viewModel: DetailWeatherDayViewModel!
+    var viewModel: DetailDayViewModel!
 
-    private lazy var collectionDataSource = DetailWeatherCollectionDataSource()
+    private lazy var collectionDataSource = DetailDayCollectionDataSource()
 
-    private var tableViewDatasource = DetailWeatherTableViewDataSource()
+    private var tableViewDatasource = DetailDayTableViewDataSource()
 
     // MARK: - View life cycle
 
@@ -46,7 +46,7 @@ class DetailWeatherDayViewController: UIViewController {
 
     // MARK: - Private Functions
 
-    private func bind(to viewModel: DetailWeatherDayViewModel) {
+    private func bind(to viewModel: DetailDayViewModel) {
 
         viewModel.cityText = { [weak self] text in
             self?.cityLabel.text = text.dayPlainTextFormat

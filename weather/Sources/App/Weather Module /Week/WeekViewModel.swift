@@ -8,18 +8,20 @@
 
 import Foundation
 
-protocol WeatherViewModelDelegate: class {
-    func didSelect(item: WeatherItem)
+protocol WeekViewModelDelegate: class {
+    func didSelectDay(item: WeatherItem)
     func displayWeatherAlert(for type: AlertType)
 }
 
-final class WeatherViewModel {
+final class WeekViewModel {
 
     // MARK: - Properties
 
     private let repository: WeatherRepositoryType
 
-    private weak var delegate: WeatherViewModelDelegate?
+    private weak var delegate: WeekViewModelDelegate?
+
+    private var selectedWeatherItem: WeatherItem
 
     private var weatherItems: [WeatherItem] = [] {
         didSet {
@@ -31,9 +33,10 @@ final class WeatherViewModel {
 
     // MARK: - Initializer
 
-    init(repository: WeatherRepositoryType, delegate: WeatherViewModelDelegate?) {
+    init(repository: WeatherRepositoryType, delegate: WeekViewModelDelegate?, selectedWeatherItem: WeatherItem) {
         self.repository = repository
         self.delegate = delegate
+        self.selectedWeatherItem = selectedWeatherItem
     }
 
     // MARK: - Outputs
@@ -60,40 +63,19 @@ final class WeatherViewModel {
     func didSelectWeatherDay(at index: Int) {
         guard !self.weatherItems.isEmpty, index < self.weatherItems.count else { return }
         let item = self.weatherItems[index]
-        self.delegate?.didSelect(item: item)
+        self.delegate?.didSelectDay(item: item)
     }
 
     // MARK: - Private Files
 
     fileprivate func showFiveDaysWeather() {
-        isLoading?(true)
-        repository.getCityItems { (cityInfo) in
-            cityInfo.enumerated().forEach { _, index in
-                self.repository.getCityWeather(nameCity: index.nameCity, country: index.country, callback: { [weak self] weather in
-                    guard let self = self else { return }
-                    self.isLoading?(false)
-                    self.cityText?(index.nameCity)
-                    switch weather {
-                    case .success(value: let items):
-                        guard !items.isEmpty else {
-                            self.delegate?.displayWeatherAlert(for: .errorService)
-                            return
-                        }
-                        self.displayHeaderLabels(items)
-                        self.initialize(items: items)
-                        self.deleteInDataBase(items)
-                        self.saveInDataBase(items)
-                        guard !items.isEmpty else {
-                            self.delegate?.displayWeatherAlert(for: .errorService)
-                            return
-                        }
-                        self.displayHeaderLabels(items)
-                        self.initialize(items: items)
-                    case .error:
-                        self.delegate?.displayWeatherAlert(for: .errorService)
-                    }
-                })
+        repository.getWeatherItems { [weak self] (item) in
+            guard let self = self else { return }
+            guard item != [] else {
+                self.delegate?.displayWeatherAlert(for: .errorService)
+                return
             }
+            self.visibleItems?(item.filter { $0.time.contains(self.selectedWeatherItem.time.dayFormat) })
         }
     }
 

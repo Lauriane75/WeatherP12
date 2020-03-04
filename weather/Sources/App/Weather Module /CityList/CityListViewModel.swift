@@ -71,6 +71,7 @@ final class CityListViewModel {
                             return
                         }
                         self.initialize(weatherItems: weatherItems)
+                        self.saveInDataBase(weatherItems)
                         guard !weatherItems.isEmpty else {
                             self.delegate?.displayAlert(for: .errorService)
                             return
@@ -90,5 +91,13 @@ final class CityListViewModel {
             return
         }
         self.weatherItems.append(weatherItems!)
+    }
+
+    private func saveInDataBase(_ items: ([WeatherItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.saveWeatherItem(weatherItem: index)
+            }
+        }
     }
 }

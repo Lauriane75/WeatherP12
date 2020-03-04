@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailWeatherCollectionDataSource: NSObject, UICollectionViewDataSource {
+class DetailDayCollectionDataSource: NSObject, UICollectionViewDataSource {
 
     // MARK: Private properties
 
@@ -31,7 +31,7 @@ class DetailWeatherCollectionDataSource: NSObject, UICollectionViewDataSource {
         let visibleWeather = items[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailWeatherCollectionViewCell",
                                                       for: indexPath)
-            as! DetailWeatherCollectionViewCell
+            as! DetailDayCollectionViewCell
         cell.configure(with: visibleWeather)
         return cell
     }

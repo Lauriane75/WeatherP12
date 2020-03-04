@@ -37,13 +37,13 @@ extension Screens {
 }
 
 extension Screens {
-    func createDaysWeatherViewController(delegate: WeatherViewModelDelegate?) -> UIViewController {
+    func createDaysWeatherViewController(delegate: WeekViewModelDelegate?, selectedWeatherItem: WeatherItem) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
-            "WeatherViewController") as! WeatherViewController
+            "WeatherViewController") as! WeekViewController
         let repository = WeatherRepository(client: context.client,
                                            stack: stack)
-        let viewModel = WeatherViewModel(repository: repository,
-                                         delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository,
+                                         delegate: delegate, selectedWeatherItem: selectedWeatherItem)
         viewController.viewModel = viewModel
         return viewController
     }
@@ -67,11 +67,11 @@ extension Screens {
 
 extension Screens {
     func createWeatherDetailViewController(selectedWeatherItem: WeatherItem,
-                                           delegate: DetailWeatherDayViewModelDelegate?) -> UIViewController {
+                                           delegate: DetailDayViewModelDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
-            "DetailWeatherDayViewController") as! DetailWeatherDayViewController
+            "DetailWeatherDayViewController") as! DetailDayViewController
         let repository = WeatherRepository(client: context.client, stack: stack)
-        let viewModel = DetailWeatherDayViewModel(repository: repository,
+        let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: selectedWeatherItem)
         viewController.viewModel = viewModel

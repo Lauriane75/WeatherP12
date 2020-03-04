@@ -11,7 +11,7 @@ import XCTest
 
 // MARK: - Mock
 
-final class MockDetailWeatherViewModelDelegate: DetailWeatherDayViewModelDelegate {
+final class MockDetailWeatherViewModelDelegate: DetailDayViewModelDelegate {
 
     var alert: AlertType?
 
@@ -40,7 +40,7 @@ class DetailWeatherDayViewModelTests: XCTestCase {
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_visibleItemsIsDisplayed() {
         repository.saveWeatherItems(weatherItem: weatherItem)
         repository.weatherItems = [weatherItem]
-        let viewModel = DetailWeatherDayViewModel(repository: repository,
+        let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
 
@@ -52,7 +52,7 @@ class DetailWeatherDayViewModelTests: XCTestCase {
     }
 
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_cityTextIsDisplayed() {
-        let viewModel = DetailWeatherDayViewModel(repository: repository,
+        let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
 
@@ -64,7 +64,7 @@ class DetailWeatherDayViewModelTests: XCTestCase {
     }
 
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_tempTextIsDisplayed() {
-        let viewModel = DetailWeatherDayViewModel(repository: repository,
+        let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
 
@@ -76,7 +76,7 @@ class DetailWeatherDayViewModelTests: XCTestCase {
     }
 
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_descriptionTextIsDisplayed() {
-        let viewModel = DetailWeatherDayViewModel(repository: repository,
+        let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
 
@@ -89,7 +89,7 @@ class DetailWeatherDayViewModelTests: XCTestCase {
 
     func test_Given_ViewModel_When_noItems_Then_alert() {
         repository.weatherItems = []
-        let viewModel = DetailWeatherDayViewModel(repository: repository,
+        let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
 

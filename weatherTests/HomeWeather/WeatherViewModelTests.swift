@@ -11,13 +11,13 @@ import XCTest
 
 // MARK: - Mock
 
-class MockWeatherViewModelDelegate: WeatherViewModelDelegate {
+class MockWeatherViewModelDelegate: WeekViewModelDelegate {
 
     var alert: AlertType?
 
     var weatherItem: WeatherItem?
 
-    func didSelect(item: WeatherItem) {
+    func didSelectDay(item: WeatherItem) {
         self.weatherItem = item
     }
 
@@ -83,7 +83,7 @@ class WeatherViewModelTests: XCTestCase {
     let repository = MockWeatherRepository()
 
     func test_Given_ViewModel_When_ViewDidLoad_Then_cityTextIsDiplayed() {
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
 
         viewModel.cityText = { text in
             XCTAssertEqual(text, "Paris")
@@ -92,7 +92,7 @@ class WeatherViewModelTests: XCTestCase {
     }
 
     func test_Given_ViewModel_When_ViewDidLoad_Then_nowTextIsDiplayed() {
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
 
         viewModel.nowText = { text in
             XCTAssertEqual(text, "Now")
@@ -102,7 +102,7 @@ class WeatherViewModelTests: XCTestCase {
 
     func test_Given_ViewModel_When_ViewDidLoad_WhithNetwork_Then_visibleItemsAreDiplayed() {
         repository.weatherItems = [self.weatherItem]
-        let viewModel = WeatherViewModel(repository: repository,
+        let viewModel = WeekViewModel(repository: repository,
                                          delegate: delegate)
         let expectation = self.expectation(description: "Diplayed visibleItems with network")
         var counter = 0
@@ -122,7 +122,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_ViewDidLoad_WhithoutNetwork_Then_visibleItemsAreDiplayedFromDatabase() {
         repository.weatherItems = [self.weatherItem]
         repository.isFromWeb = false
-        let viewModel = WeatherViewModel(repository: repository,
+        let viewModel = WeekViewModel(repository: repository,
                                          delegate: delegate)
         let expectation = self.expectation(description: "Diplayed visibleItems without network")
         var counter = 0
@@ -140,7 +140,7 @@ class WeatherViewModelTests: XCTestCase {
 
     func test_Given_ViewModel_When_ViewDidLoad_WhithNetwork_Then_tempTextIsDiplayed() {
         repository.weatherItems = [self.weatherItem]
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
         let expectation = self.expectation(description: "Diplayed tempText with network")
 
         var counter = 0
@@ -159,7 +159,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_ViewDidLoad_WhithoutNetwork_Then_tempTextIsDiplayed() {
         repository.weatherItems = [self.weatherItem]
         repository.isFromWeb = false
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
         let expectation = self.expectation(description: "Diplayed tempText without network")
 
         var counter = 0
@@ -177,7 +177,7 @@ class WeatherViewModelTests: XCTestCase {
 
     func test_Given_ViewModel_When_ViewDidLoad_WhithNetwork_Then_iconTextIsDiplayed() {
         repository.weatherItems = [self.weatherItem]
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
         let expectation = self.expectation(description: "Diplayed iconText with network")
 
         var counter = 0
@@ -197,7 +197,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_ViewDidLoad_WhithoutNetwork_Then_iconTextIsDiplayed() {
         repository.weatherItems = [self.weatherItem]
         repository.isFromWeb = false
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
         let expectation = self.expectation(description: "Diplayed iconText without network")
 
         var counter = 0
@@ -215,7 +215,7 @@ class WeatherViewModelTests: XCTestCase {
     }
 
     func test_Given_ViewModel_When_ViewDidLoad_Then_isLoadingIsDiplayed() {
-        let viewModel = WeatherViewModel(repository: repository,
+        let viewModel = WeekViewModel(repository: repository,
                                          delegate: delegate)
         viewModel.viewDidLoad()
 
@@ -226,7 +226,7 @@ class WeatherViewModelTests: XCTestCase {
 
     func test_Given_ViewModel_When_ViewDidLoad_WhithNetwork_isLoadingIsDiplayed() {
         repository.weatherItems = [self.weatherItem]
-        let viewModel = WeatherViewModel(repository: repository,
+        let viewModel = WeekViewModel(repository: repository,
                                          delegate: delegate)
         let expectation = self.expectation(description: "Diplayed isLoading whith network")
 
@@ -247,7 +247,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_ViewDidLoad_WhithoutNetwork_isLoadingIsDiplayed() {
         repository.weatherItems = [self.weatherItem]
         repository.isFromWeb = false
-        let viewModel = WeatherViewModel(repository: repository,
+        let viewModel = WeekViewModel(repository: repository,
                                          delegate: delegate)
         let expectation = self.expectation(description: "Diplayed activityIndicator whithout network")
 
@@ -269,7 +269,7 @@ class WeatherViewModelTests: XCTestCase {
         repository.weatherItems = [weatherItem]
         let delegate = MockWeatherViewModelDelegate()
 
-        let viewModel = WeatherViewModel(repository: repository,
+        let viewModel = WeekViewModel(repository: repository,
                                          delegate: delegate)
 
         viewModel.viewDidLoad()
@@ -281,7 +281,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_noInternetConnection_Then_alert() {
         repository.isSuccess = false
         repository.error = ServiceError.noData
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
 
         viewModel.viewDidLoad()
 
@@ -291,7 +291,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_noItems_Then_alert() {
         repository.weatherItems = []
         repository.isSuccess = false
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
 
         viewModel.viewDidLoad()
 
@@ -300,7 +300,7 @@ class WeatherViewModelTests: XCTestCase {
 
     func test_Given_ViewModel_When_noItemsWithNetwork_Then_alert() {
         repository.weatherItems = []
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
 
         viewModel.viewDidLoad()
 
@@ -310,7 +310,7 @@ class WeatherViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_noItemsWithoutNetwork_Then_alert() {
         repository.isFromWeb = false
         repository.weatherItems = []
-        let viewModel = WeatherViewModel(repository: repository, delegate: delegate)
+        let viewModel = WeekViewModel(repository: repository, delegate: delegate)
 
         viewModel.viewDidLoad()
 

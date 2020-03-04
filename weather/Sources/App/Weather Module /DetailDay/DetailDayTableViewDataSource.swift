@@ -1,5 +1,5 @@
 //
-//  WeatherDataSource.swift
+//  DetailWeatherTableViewDataSource.swift
 //  weather
 //
 //  Created by Lauriane Haydari on 12/02/2020.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-final class WeatherDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+final class DetailDayTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: Private properties
 
     private var items: [WeatherItem] = []
 
-    var selectedWeatherDay: ((Int) -> Void)?
+    var selectedWeatherDay: ((WeatherItem) -> Void)?
 
     // MARK: Public function
 
@@ -30,16 +30,16 @@ final class WeatherDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard items.count > indexPath.item else {
-            return UITableViewCell() // Should be monitored
+            return UITableViewCell()
         }
         let visibleWeather = items[indexPath.item]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailWeatherTableViewCell", for: indexPath) as! DetailDayTableViewCell
         cell.configure(with: visibleWeather)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.row < items.count else { return }
-        selectedWeatherDay?(indexPath.row)
+        selectedWeatherDay?(items[indexPath.row])
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DetailWeatherCollectionViewCell: UICollectionViewCell {
+final class DetailDayCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Outlet
 

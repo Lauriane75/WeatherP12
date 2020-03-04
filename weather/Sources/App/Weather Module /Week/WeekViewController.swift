@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
+class WeekViewController: UIViewController {
 
     // MARK: - Outlet
 
@@ -26,9 +26,9 @@ class WeatherViewController: UIViewController {
 
     // MARK: - Properties
 
-    var viewModel: WeatherViewModel!
+    var viewModel: WeekViewModel!
 
-    private var source = WeatherDataSource()
+    private var source = WeekDataSource()
 
     // MARK: - View life cycle
 
@@ -48,7 +48,7 @@ class WeatherViewController: UIViewController {
 
     // MARK: - Private Functions
 
-    private func bind(to viewModel: WeatherViewModel) {
+    private func bind(to viewModel: WeekViewModel) {
         viewModel.visibleItems = { [weak self] items in
             DispatchQueue.main.async {
                 self?.source.update(with: items)
@@ -95,7 +95,7 @@ class WeatherViewController: UIViewController {
         }
     }
 
-    private func bind(to source: WeatherDataSource) {
+    private func bind(to source: WeekDataSource) {
         source.selectedWeatherDay = viewModel.didSelectWeatherDay
     }
 
