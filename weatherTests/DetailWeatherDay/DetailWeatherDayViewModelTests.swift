@@ -38,7 +38,7 @@ class DetailWeatherDayViewModelTests: XCTestCase {
                                   description: "Sunny")
 
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_visibleItemsIsDisplayed() {
-        repository.saveWeatherItems(items: weatherItem)
+        repository.saveWeatherItems(weatherItem: weatherItem)
         repository.weatherItems = [weatherItem]
         let viewModel = DetailWeatherDayViewModel(repository: repository,
                                                   delegate: delegate,

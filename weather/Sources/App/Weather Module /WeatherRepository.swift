@@ -9,13 +9,20 @@
 import CoreData
 
 protocol WeatherRepositoryType: class {
-    func saveWeatherItems(items: WeatherItem)
+
+    // MARK: - Get from openWeather API
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
+
+    // MARK: - Save in coredata
+    func saveCityItem(city: CityItem)
+    func saveWeatherItem(weatherItem: WeatherItem)
+
+    // MARK: - Get from coredata
+    func getCityItems(callback: @escaping ([CityItem]) -> Void)
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
 
-    func getCityItems(callback: @escaping (_ nameCity: [String], _ country: [String]) -> Void)
+    // MARK: - Delete from coredata
     func deleteWeatherItemsInDataBase(timeWeather: String)
-    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
-    func saveCityItems(nameCity: String, country: String)
 }
 
 final class WeatherRepository: WeatherRepositoryType {
@@ -48,10 +55,14 @@ final class WeatherRepository: WeatherRepositoryType {
 
                         switch weather {
 
-                        case .success(value: let weatheritems):
-                            let items: [WeatherItem] = weatheritems.forecasts.map { item in
-                                return WeatherItem(item: item) }
-                            callback(.success(value: (items)))
+                        case .success(value: let items):
+
+                        let weatherItems: [WeatherItem] = items.forecasts.map { item in
+                            let cityItem = items.city
+
+                            return WeatherItem(weatherItem: item, cityItem: cityItem) }
+
+                            callback(.success(value: (weatherItems)))
 
                         case .error(error: let error):
                             let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
@@ -68,24 +79,24 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Save in coredata
 
-    func saveWeatherItems(items: WeatherItem) {
+    func saveWeatherItem(weatherItem: WeatherItem) {
         let weatherObject = WeatherObject(context: stack.context)
-        weatherObject.iconWeather = items.iconID
-        weatherObject.timeWeather = items.time
-        weatherObject.tempMinWeather = items.temperatureMin
-        weatherObject.tempMaxWeather = items.temperatureMax
-        weatherObject.tempWeather = items.temperature
-        weatherObject.pressureWeather = items.pressure
-        weatherObject.humidityWeather = items.humidity
-        weatherObject.feelsLikeWeather = items.feelsLike
-        weatherObject.descriptionWeather = items.description
+        weatherObject.iconWeather = weatherItem.iconID
+        weatherObject.timeWeather = weatherItem.time
+        weatherObject.tempMinWeather = weatherItem.temperatureMin
+        weatherObject.tempMaxWeather = weatherItem.temperatureMax
+        weatherObject.tempWeather = weatherItem.temperature
+        weatherObject.pressureWeather = weatherItem.pressure
+        weatherObject.humidityWeather = weatherItem.humidity
+        weatherObject.feelsLikeWeather = weatherItem.feelsLike
+        weatherObject.descriptionWeather = weatherItem.description
         stack.saveContext()
     }
 
-    func saveCityItems(nameCity: String, country: String) {
+    func saveCityItem(city: CityItem) {
         let cityObject = CityObject(context: stack.context)
-        cityObject.nameCity = nameCity
-        cityObject.countryCity = country
+        cityObject.nameCity = city.nameCity
+        cityObject.countryCity = city.country
 
         stack.saveContext()
     }
@@ -99,13 +110,11 @@ final class WeatherRepository: WeatherRepositoryType {
         callback(weather)
     }
 
-    func getCityItems(callback: @escaping (_ nameCity: [String], _ country: [String]) -> Void) {
+    func getCityItems(callback: @escaping ([CityItem]) -> Void) {
         let requestCity: NSFetchRequest<CityObject> = CityObject.fetchRequest()
         guard let cityItems = try? stack.context.fetch(requestCity) else { return }
-        let cityName: [String] = cityItems.map { return ($0.nameCity ?? "paris") }
-        let country: [String] = cityItems.map { return ($0.countryCity ?? "fr") }
-
-        callback(cityName, country)
+        let city: [CityItem] = cityItems.map { return CityItem(object: $0) }
+        callback(city)
     }
 
     // MARK: - Delete from coredata
@@ -124,6 +133,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
 extension WeatherItem {
     init(object: WeatherObject) {
+        self.nameCity = object.nameCityWeather ?? "paris"
         self.iconID = object.iconWeather ?? ""
         self.time = object.timeWeather ?? ""
         self.temperatureMin = object.tempMinWeather ?? ""
@@ -136,16 +146,24 @@ extension WeatherItem {
     }
 }
 
+extension CityItem {
+    init(object: CityObject) {
+        self.nameCity = object.nameCity ?? "paris"
+        self.country = object.countryCity ?? "fr"
+    }
+}
+
 extension WeatherItem {
-    init(item: Forecast) {
-        self.time = item.dtTxt
-        self.temperature = "\(Int(item.main.temp)) °C"
-        self.iconID = item.weather.first?.icon ?? "01d"
-        self.temperatureMin = "\(Int(item.main.tempMin)) °C"
-        self.temperatureMax = "\(Int(item.main.tempMax)) °C"
-        self.pressure = "\(item.main.pressure) hPa"
-        self.humidity = "\(item.main.humidity) %"
-        self.feelsLike = "\(Int(item.main.feelsLike)) °C"
-        self.description = "\(item.weather.first?.weatherDescription ?? "")"
+    init(weatherItem: Forecast, cityItem: City) {
+        self.nameCity = cityItem.name
+        self.time = weatherItem.dtTxt
+        self.temperature = "\(Int(weatherItem.main.temp)) °C"
+        self.iconID = weatherItem.weather.first?.icon ?? "01d"
+        self.temperatureMin = "\(Int(weatherItem.main.tempMin)) °C"
+        self.temperatureMax = "\(Int(weatherItem.main.tempMax)) °C"
+        self.pressure = "\(weatherItem.main.pressure) hPa"
+        self.humidity = "\(weatherItem.main.humidity) %"
+        self.feelsLike = "\(Int(weatherItem.main.feelsLike)) °C"
+        self.description = "\(weatherItem.weather.first?.weatherDescription ?? "")"
     }
 }

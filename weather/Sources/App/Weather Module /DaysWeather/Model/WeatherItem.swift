@@ -9,6 +9,7 @@
 import Foundation
 
 struct WeatherItem: Equatable {
+    let nameCity: String
     let time: String
     let temperature: String
     let iconID: String

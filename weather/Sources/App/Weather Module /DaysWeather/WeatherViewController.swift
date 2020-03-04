@@ -85,7 +85,9 @@ class WeatherViewController: UIViewController {
         }
 
         viewModel.cityText = { [weak self] text in
+            DispatchQueue.main.async {
             self?.cityLabel.text = text
+            }
         }
 
         viewModel.nowText = { [weak self] text in

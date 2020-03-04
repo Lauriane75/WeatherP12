@@ -23,37 +23,12 @@ class SelectCityViewModelTests: XCTestCase {
                                   feelsLike: "18 °C",
                                   description: "Sunny")
 
-    func test_Given_DetailViewModel_When_ViewdidLoad_Then_IsDisplayed() {
-        let viewModel = SelectCityViewModel()
-
-        viewModel.titleText = { text in
-            XCTAssertEqual(text, "Select an other city")
-        }
-        viewModel.parisText = { text in
-            XCTAssertEqual(text, "Paris")
-        }
-        viewModel.lyonText = { text in
-            XCTAssertEqual(text, "Lyon")
-        }
-        viewModel.nantesText = { text in
-            XCTAssertEqual(text, "Nantes")
-        }
-        viewModel.barcelonaText = { text in
-            XCTAssertEqual(text, "Barcelona")
-        }
-        viewModel.warsawText = { text in
-            XCTAssertEqual(text, "Warsaw")
-        }
-        viewModel.brusselsText = { text in
-            XCTAssertEqual(text, "Brussels")
-        }
-        viewModel.lausanneText = { text in
-            XCTAssertEqual(text, "Lausanne")
-        }
-        viewModel.telAvivText = { text in
-            XCTAssertEqual(text, "Tel Aviv")
-        }
-
-        viewModel.viewDidLoad()
-    }
+//    func test_Given_DetailViewModel_When_ViewdidLoad_Then_IsDisplayed() {
+//
+//        let repository = MockWeatherRepository()//
+//        viewModel.titleText = { text in
+//            XCTAssertEqual(text, "Select an other city")
+//        }
+//        viewModel.viewDidLoad()
+//    }
 }

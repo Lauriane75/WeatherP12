@@ -20,7 +20,7 @@ class CityListViewController: UIViewController {
 
     var viewModel: CityListViewModel!
 
-    private var source = CityDataSource()
+    private var source = CityListDataSource()
 
     // MARK: - View life cycle
 
@@ -41,22 +41,23 @@ class CityListViewController: UIViewController {
     // MARK: - Private Functions
 
     private func bind(to viewModel: CityListViewModel) {
-        viewModel.visibleItems = { [weak self] items in
+        viewModel.visibleWeatherItems = { [weak self] weatherItems in
             DispatchQueue.main.async {
-                self?.source.update(with: items)
+                self?.source.update(with: weatherItems)
                 self?.tableView.reloadData()
             }
         }
+
         viewModel.isLoading = { [weak self] loadingState in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch loadingState {
                 case true:
-                    //                    self.tableView.isHidden = true
+                    self.tableView.isHidden = true
                     self.activityIndicator.isHidden = false
                     self.activityIndicator.startAnimating()
                 case false:
-                    //                    self.tableView.isHidden = false
+                    self.tableView.isHidden = false
                     self.activityIndicator.stopAnimating()
                     self.activityIndicator.isHidden = true
                 }
@@ -64,7 +65,7 @@ class CityListViewController: UIViewController {
         }
     }
 
-    private func bind(to source: CityDataSource) {
+    private func bind(to source: CityListDataSource) {
         source.selectedCity = viewModel.didSelectCity
     }
 

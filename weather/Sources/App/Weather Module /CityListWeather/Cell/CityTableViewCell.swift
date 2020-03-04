@@ -19,7 +19,7 @@ final class CityTableViewCell: UITableViewCell {
     // MARK: - Configure
 
     func configure(with visibleWeather: WeatherItem) {
-        cityLabel.text = ""
+        cityLabel.text = visibleWeather.nameCity
         tempLabel.text = visibleWeather.temperature
     }
 

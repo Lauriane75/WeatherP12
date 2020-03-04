@@ -41,7 +41,4 @@ final class SelectCityCoordinator {
 }
 
 extension SelectCityCoordinator: SelectCityViewModelDelegate {
-    func didPressAddCity(nameCity: String, country: String) {
-
-    }
 }

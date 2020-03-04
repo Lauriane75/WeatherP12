@@ -27,12 +27,24 @@ class MockWeatherViewModelDelegate: WeatherViewModelDelegate {
 }
 
 class MockWeatherRepository: WeatherRepositoryType {
+    func getCityItems(callback: @escaping ([String], [String]) -> Void) {
+
+    }
+
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void) {
+
+    }
+
+    func saveCityItems(nameCity: String, country: String) {
+
+    }
+
     var weatherItems: [WeatherItem]?
     var isSuccess = true
     var isFromWeb = true
     var error: Error!
 
-    func saveWeatherItems(items: WeatherItem) {
+    func saveWeatherItems(weatherItem: WeatherItem) {
 
     }
 

@@ -9,7 +9,6 @@
 import Foundation
 
 protocol SelectCityViewModelDelegate: class {
-    func didPressAddCity(nameCity: String, country: String)
 }
 
 final class SelectCityViewModel {
@@ -55,12 +54,7 @@ final class SelectCityViewModel {
     // MARK: - Private Files
 
     func didPressAddCity(nameCity: String, country: String) {
-        delegate?.didPressAddCity(nameCity: nameCity, country: country)
-        repository.saveCityItems(nameCity: nameCity, country: country)
+        let cityInfo = CityItem(nameCity: nameCity, country: country)
+        repository.saveCityItem(city: cityInfo)
     }
-}
-
-struct CityInfo: Equatable {
-    let nameCity: String
-    let country: String
 }

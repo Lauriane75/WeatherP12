@@ -21,13 +21,13 @@ final class CityListViewModel {
 
     private weak var delegate: CityListViewModelDelegate?
 
+    private let timeWeatherDay = "12:00:00"
+
     private var weatherItems: [WeatherItem] = [] {
         didSet {
-            self.visibleItems?(self.weatherItems)
+            self.visibleWeatherItems?(self.weatherItems)
         }
     }
-
-    private let timeWeatherDay = "12:00:00"
 
     // MARK: - Initializer
 
@@ -38,14 +38,14 @@ final class CityListViewModel {
 
     // MARK: - Output
 
-    var visibleItems: (([WeatherItem]) -> Void)?
+    var visibleWeatherItems: (([WeatherItem]) -> Void)?
 
     var isLoading: ((Bool) -> Void)?
 
     // MARK: - Input
 
     func viewDidLoad() {
-        showFiveDaysWeather()
+        showCityListWeather()
     }
 
     func didSelectCity(at index: Int) {
@@ -56,37 +56,39 @@ final class CityListViewModel {
 
     // MARK: - Private Functions
 
-    fileprivate func showFiveDaysWeather() {
+    fileprivate func showCityListWeather() {
         isLoading?(true)
-
-        repository.getCityItems { (nameCity, country) in
-            self.repository.getCityWeather(nameCity: "paris", country: "fr", callback: { [weak self] weather in
-                guard let self = self else { return }
-                self.isLoading?(false)
-                switch weather {
-                case .success(value: let items):
-                    guard !items.isEmpty else {
+        repository.getCityItems { (cityItems) in
+            guard !cityItems.isEmpty else { return }
+            cityItems.enumerated().forEach { _, index in
+                self.repository.getCityWeather(nameCity: index.nameCity, country: index.country, callback: { [weak self] weather in
+                    guard let self = self else { return }
+                    self.isLoading?(false)
+                    switch weather {
+                    case .success(value: let weatherItems):
+                        guard !weatherItems.isEmpty else {
+                            self.delegate?.displayAlert(for: .errorService)
+                            return
+                        }
+                        self.initialize(weatherItems: weatherItems)
+                        guard !weatherItems.isEmpty else {
+                            self.delegate?.displayAlert(for: .errorService)
+                            return
+                        }
+                    case .error:
                         self.delegate?.displayAlert(for: .errorService)
-                        return
                     }
-                    self.initialize(items: items)
-                    guard !items.isEmpty else {
-                        self.delegate?.displayAlert(for: .errorService)
-                        return
-                    }
-                case .error:
-                    self.delegate?.displayAlert(for: .errorService)
-                }
-            })
+                })
+            }
         }
     }
 
-    private func initialize(items: [WeatherItem]) {
-        let items = items.first
-        guard items != nil else {
+    private func initialize(weatherItems: [WeatherItem]) {
+        let weatherItems = weatherItems.first
+        guard weatherItems != nil else {
             self.delegate?.displayAlert(for: .errorService)
             return
         }
-        weatherItems = [items!]
+        self.weatherItems.append(weatherItems!)
     }
 }
