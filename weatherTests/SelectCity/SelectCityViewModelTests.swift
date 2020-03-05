@@ -13,15 +13,16 @@ import XCTest
 
 class SelectCityViewModelTests: XCTestCase {
 
-    let weatherItem = WeatherItem(time: "2020-02-13 12:00:00",
-                                  temperature: "19 °C",
-                                  iconID: "01d",
-                                  temperatureMax: "20 °C",
-                                  temperatureMin: "15 °C",
-                                  pressure: "1002 hPa",
-                                  humidity: "50 %",
-                                  feelsLike: "18 °C",
-                                  description: "Sunny")
+    let weatherItem = WeatherItem(nameCity: "paris",
+                                     time: "2020-02-13 12:00:00",
+                                     temperature: "19 °C",
+                                     iconID: "01d",
+                                     temperatureMax: "20 °C",
+                                     temperatureMin: "15 °C",
+                                     pressure: "1002 hPa",
+                                     humidity: "50 %",
+                                     feelsLike: "18 °C",
+                                     description: "Sunny")
 
 //    func test_Given_DetailViewModel_When_ViewdidLoad_Then_IsDisplayed() {
 //

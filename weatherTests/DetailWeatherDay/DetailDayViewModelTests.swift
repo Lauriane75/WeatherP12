@@ -11,7 +11,7 @@ import XCTest
 
 // MARK: - Mock
 
-final class MockDetailWeatherViewModelDelegate: DetailDayViewModelDelegate {
+final class MockDetailDayViewModelDelegate: DetailDayViewModelDelegate {
 
     var alert: AlertType?
 
@@ -22,23 +22,24 @@ final class MockDetailWeatherViewModelDelegate: DetailDayViewModelDelegate {
 
 // MARK: - Tests
 
-class DetailWeatherDayViewModelTests: XCTestCase {
+class DetailDayViewModelTests: XCTestCase {
 
-    let delegate = MockDetailWeatherViewModelDelegate()
+    let delegate = MockDetailDayViewModelDelegate()
     let repository = MockWeatherRepository()
 
-    let weatherItem = WeatherItem(time: "2020-02-13 12:00:00",
-                                  temperature: "19 °C",
-                                  iconID: "01d",
-                                  temperatureMax: "20 °C",
-                                  temperatureMin: "15 °C",
-                                  pressure: "1002 hPa",
-                                  humidity: "50 %",
-                                  feelsLike: "18 °C",
-                                  description: "Sunny")
+    let weatherItem = WeatherItem(nameCity: "paris",
+                                     time: "2020-02-13 12:00:00",
+                                     temperature: "19 °C",
+                                     iconID: "01d",
+                                     temperatureMax: "20 °C",
+                                     temperatureMin: "15 °C",
+                                     pressure: "1002 hPa",
+                                     humidity: "50 %",
+                                     feelsLike: "18 °C",
+                                     description: "Sunny")
 
     func test_Given_DetailViewModel_When_ViewdidLoad_Then_visibleItemsIsDisplayed() {
-        repository.saveWeatherItems(weatherItem: weatherItem)
+        repository.saveWeatherItem(weatherItem: weatherItem)
         repository.weatherItems = [weatherItem]
         let viewModel = DetailDayViewModel(repository: repository,
                                                   delegate: delegate,

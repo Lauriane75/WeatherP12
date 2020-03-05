@@ -67,6 +67,7 @@ class CityListViewController: UIViewController {
 
     private func bind(to source: CityListDataSource) {
         source.selectedCity = viewModel.didSelectCity
+        source.selectedCityToDelete = viewModel.didPressDeleteCity
     }
 
     func navigationBarCustom() {

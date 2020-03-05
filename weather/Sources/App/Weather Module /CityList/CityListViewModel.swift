@@ -26,7 +26,6 @@ final class CityListViewModel {
     private var weatherItems: [WeatherItem] = [] {
         didSet {
             self.visibleWeatherItems?(self.weatherItems)
-            print(self.weatherItems)
         }
     }
 
@@ -53,6 +52,21 @@ final class CityListViewModel {
         guard !self.weatherItems.isEmpty, index < self.weatherItems.count else { return }
         let item = self.weatherItems[index]
         self.delegate?.didSelectCity(item: item)
+    }
+
+    func didPressDeleteCity(at index: Int) {
+        guard !self.weatherItems.isEmpty, index < self.weatherItems.count else { return }
+        let item = self.weatherItems[index]
+        repository.deleteWeatherItemInDataBase(timeWeather: item.time)
+        repository.deleteCityItemInDataBase(nameCity: item.nameCity)
+//        repository.getCityItems { (cityItem) in
+//            print(cityItem)
+//        }
+//        repository.getWeatherItems { (weatherItem) in
+//            print(weatherItem)
+//        }
+        weatherItems.removeAll()
+        showCityListWeather()
     }
 
     // MARK: - Private Functions
@@ -98,26 +112,3 @@ final class CityListViewModel {
         self.weatherItems.append(weatherItems!)
     }
 }
-
-//    private func deleteInDataBase(_ items: ([WeatherItem])) {
-//        DispatchQueue.main.async {
-//            items.enumerated().forEach { _, index in
-//                print(index.time)
-//                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
-//            }
-//        }
-//    }
-
-//    private func saveInDataBase(_ items: ([WeatherItem])) {
-//        DispatchQueue.main.async {
-//            items.enumerated().forEach { _, index in
-//                self.repository.saveWeatherItem(weatherItem: index)
-//            }
-//        }
-//    }
-//
-//    private func deleteInDataBase() {
-//        DispatchQueue.main.async {
-//            self.repository.deleteWeatherItemsInDataBase()
-//        }
-//    }

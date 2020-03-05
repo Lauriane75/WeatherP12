@@ -16,6 +16,8 @@ final class CityListDataSource: NSObject, UITableViewDataSource, UITableViewDele
 
     var selectedCity: ((Int) -> Void)?
 
+    var selectedCityToDelete: ((Int) -> Void)?
+
     // MARK: Public function
 
     func update(with items: [WeatherItem]) {
@@ -42,4 +44,15 @@ final class CityListDataSource: NSObject, UITableViewDataSource, UITableViewDele
         guard indexPath.row < weahterItems.count else { return }
         selectedCity?(indexPath.row)
     }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard indexPath.row < weahterItems.count else { return }
+        weahterItems.remove(at: indexPath.row)
+        selectedCityToDelete?(indexPath.row)
+    }
+
 }
