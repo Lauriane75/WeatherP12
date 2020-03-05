@@ -9,27 +9,88 @@
 import XCTest
 @ testable import weather
 
+// MARK: - Mock
+
+class MocSelectCityViewModelDelegate: SelectCityViewModelDelegate {
+
+}
+
 // MARK: - Tests
 
 class SelectCityViewModelTests: XCTestCase {
 
-    let weatherItem = WeatherItem(nameCity: "paris",
-                                     time: "2020-02-13 12:00:00",
-                                     temperature: "19 °C",
-                                     iconID: "01d",
-                                     temperatureMax: "20 °C",
-                                     temperatureMin: "15 °C",
-                                     pressure: "1002 hPa",
-                                     humidity: "50 %",
-                                     feelsLike: "18 °C",
-                                     description: "Sunny")
+    let cityItem = CityItem(nameCity: "fr", country: "paris")
 
-//    func test_Given_DetailViewModel_When_ViewdidLoad_Then_IsDisplayed() {
-//
-//        let repository = MockWeatherRepository()//
-//        viewModel.titleText = { text in
-//            XCTAssertEqual(text, "Select an other city")
-//        }
-//        viewModel.viewDidLoad()
-//    }
+    let repository = MockWeatherRepository()
+    let delegate = MocSelectCityViewModelDelegate()
+
+    func test_Given_ViewModel_When_ViewdidLoad_Then_titleTextIsDisplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.titleText = { text in
+            XCTAssertEqual(text, "Select an other city")
+        }
+        viewModel.viewDidLoad()
+    }
+
+    func test_Given_ViewModel_When_ViewdidLoad_Then_cityTextIsDisplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.cityText = { text in
+            XCTAssertEqual(text, "Enter the name of the city")
+        }
+        viewModel.viewDidLoad()
+    }
+
+    func test_Given_ViewModel_When_ViewdidLoad_Then_cityPlaceHoldertIsDisplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.cityPlaceHolder = { text in
+            XCTAssertEqual(text, "Paris")
+        }
+        viewModel.viewDidLoad()
+    }
+
+    func test_Given_ViewModel_When_ViewdidLoad_Then_countryTextIsDisplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.countryText = { text in
+            XCTAssertEqual(text, "Enter the first two letters of the country")
+        }
+        viewModel.viewDidLoad()
+    }
+
+    func test_Given_ViewModel_When_ViewdidLoad_Then_countryPlaceHolderIsDisplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.countryPlaceHolder = { text in
+            XCTAssertEqual(text, "fr")
+        }
+        viewModel.viewDidLoad()
+    }
+
+    func test_Given_ViewModel_When_ViewdidLoad_Then_addTextIsDisplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.addText = { text in
+            XCTAssertEqual(text, "Add this city to the list")
+        }
+        viewModel.viewDidLoad()
+    }
+
+    func test_Given_ViewModel_When_didPressAddCity_Then_() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.didPressAddCity(nameCity: "paris", country: "fr")
+
+        viewModel.viewDidLoad()
+    }
+
 }
