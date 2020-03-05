@@ -31,6 +31,10 @@ final class WeekViewModel {
 
     private let timeWeatherDay = "12:00:00"
 
+    private var nameCity = ""
+
+    private var country = ""
+
     // MARK: - Initializer
 
     init(repository: WeatherRepositoryType, delegate: WeekViewModelDelegate?, selectedWeatherItem: WeatherItem) {
@@ -56,7 +60,9 @@ final class WeekViewModel {
     // MARK: - Inputs
 
     func viewDidLoad() {
+        isLoading?(true)
         nowText?("Now")
+        getCityItemsSelected()
         showWeekWeather()
     }
 
@@ -69,14 +75,33 @@ final class WeekViewModel {
     // MARK: - Private Files
 
     fileprivate func showWeekWeather() {
-        isLoading?(true)
-        repository.getWeatherItems { [weak self] (items) in
-            print("item = \(items)")
+        self.repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
             guard let self = self else { return }
             self.isLoading?(false)
-            self.displayHeaderLabels(items)
-            self.initialize(items: items)
-        }
+            switch weather {
+            case .success(value: let dataOrigin):
+                switch dataOrigin {
+                case .web(let items):
+                    guard !items.isEmpty else {
+                        self.delegate?.displayWeatherAlert(for: .errorService)
+                        return
+                    }
+                    self.displayHeaderLabels(items)
+                    self.initialize(items: items)
+                    self.deleteInDataBase(items)
+                    self.saveInDataBase(items)
+                case .database(let items):
+                    guard !items.isEmpty else {
+                        self.delegate?.displayWeatherAlert(for: .errorService)
+                        return
+                    }
+                    self.displayHeaderLabels(items)
+                    self.initialize(items: items)
+                }
+            case .error:
+                self.delegate?.displayWeatherAlert(for: .errorService)
+            }
+        })
     }
 
     private func initialize(items: [WeatherItem]) {
@@ -98,19 +123,29 @@ final class WeekViewModel {
         cityText?("\(city)")
     }
 
-//    private func saveInDataBase(_ items: ([WeatherItem])) {
-//        DispatchQueue.main.async {
-//            items.enumerated().forEach { _, index in
-//                self.repository.saveWeatherItem(weatherItem: index)
-//            }
-//        }
-//    }
-//
-//    private func deleteInDataBase(_ items: ([WeatherItem])) {
-//        DispatchQueue.main.async {
-//            items.enumerated().forEach { _, index in
-//                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
-//            }
-//        }
-//    }
+    private func saveInDataBase(_ items: ([WeatherItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.saveWeatherItem(weatherItem: index)
+            }
+        }
+    }
+
+    private func deleteInDataBase(_ items: ([WeatherItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
+            }
+        }
+    }
+
+    private func getCityItemsSelected() {
+        self.nameCity = self.selectedWeatherItem.nameCity
+        repository.getCityItems { (cityInfo) in
+            let item = cityInfo.filter { $0.nameCity.contains(self.nameCity)}
+            item.enumerated().forEach { _, index in
+                self.country = index.country
+            }
+        }
+    }
 }

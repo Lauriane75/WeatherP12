@@ -74,7 +74,6 @@ final class CityListViewModel {
                                 return
                             }
                             self.initialize(weatherItems: items)
-                            self.saveInDataBase(items)
                         case .database(let items):
                             guard !items.isEmpty else {
                                 self.delegate?.displayAlert(for: .errorService)
@@ -98,20 +97,6 @@ final class CityListViewModel {
         }
         self.weatherItems.append(weatherItems!)
     }
-
-    private func saveInDataBase(_ items: ([WeatherItem])) {
-        DispatchQueue.main.async {
-            items.enumerated().forEach { _, index in
-                self.repository.saveWeatherItem(weatherItem: index)
-            }
-        }
-    }
-
-    private func deleteInDataBase() {
-        DispatchQueue.main.async {
-            self.repository.deleteWeatherItemsInDataBase()
-        }
-    }
 }
 
 //    private func deleteInDataBase(_ items: ([WeatherItem])) {
@@ -120,5 +105,19 @@ final class CityListViewModel {
 //                print(index.time)
 //                self.repository.deleteWeatherItemsInDataBase(timeWeather: index.time)
 //            }
+//        }
+//    }
+
+//    private func saveInDataBase(_ items: ([WeatherItem])) {
+//        DispatchQueue.main.async {
+//            items.enumerated().forEach { _, index in
+//                self.repository.saveWeatherItem(weatherItem: index)
+//            }
+//        }
+//    }
+//
+//    private func deleteInDataBase() {
+//        DispatchQueue.main.async {
+//            self.repository.deleteWeatherItemsInDataBase()
 //        }
 //    }

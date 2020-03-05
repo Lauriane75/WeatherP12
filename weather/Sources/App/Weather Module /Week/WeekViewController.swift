@@ -96,7 +96,7 @@ class WeekViewController: UIViewController {
     }
 
     private func bind(to source: WeekDataSource) {
-//        source.selectedWeatherDay = viewModel.didSelectWeatherDay
+        source.selectedWeatherDay = viewModel.didSelectWeatherDay
     }
 
     // MARK: - Private Files
