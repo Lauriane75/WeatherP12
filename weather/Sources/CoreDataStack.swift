@@ -43,7 +43,11 @@ final class CoreDataStack {
 
     func saveContext() {
         if context.hasChanges {
-            try? context.save()
+            do {
+                try? context.save()
+            } catch let error as NSError {
+                print(error)
+            }
         }
     }
 }

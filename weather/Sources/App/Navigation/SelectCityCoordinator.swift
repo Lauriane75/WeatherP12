@@ -41,4 +41,8 @@ final class SelectCityCoordinator {
 }
 
 extension SelectCityCoordinator: SelectCityViewModelDelegate {
+    func displayAlert(for type: AlertType) {
+
+    }
+
 }

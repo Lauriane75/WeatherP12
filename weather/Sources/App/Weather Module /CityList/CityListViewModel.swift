@@ -59,8 +59,7 @@ final class CityListViewModel {
         let item = self.weatherItems[index]
         repository.deleteWeatherItemInDataBase(timeWeather: item.time)
         repository.deleteCityItemInDataBase(nameCity: item.nameCity)
-        weatherItems.removeAll()
-        showCityListWeather()
+        weatherItems.remove(at: index)
     }
 
     // MARK: - Private Functions
@@ -106,10 +105,3 @@ final class CityListViewModel {
         self.weatherItems.append(weatherItems!)
     }
 }
-
-//        repository.getCityItems { (cityItem) in
-//            print(cityItem)
-//        }
-//        repository.getWeatherItems { (weatherItem) in
-//            print(weatherItem)
-//        }

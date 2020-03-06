@@ -496,8 +496,8 @@
 			isa = PBXGroup;
 			children = (
 				F6A7CF1323F3F62300DE4D2E /* WeatherItem.swift */,
-				F6D8074623ECBF0B00C53355 /* Weather.swift */,
 				F638F2D8240FA5AF00A5F903 /* CityItem.swift */,
+				F6D8074623ECBF0B00C53355 /* Weather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

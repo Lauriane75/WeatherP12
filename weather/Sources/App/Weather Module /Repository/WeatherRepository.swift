@@ -40,6 +40,10 @@ final class WeatherRepository: WeatherRepositoryType {
     private let token = RequestCancelationToken()
     private let stack: CoreDataStack
 
+    private var cityItems: [CityObject] = []
+
+    private var weatherItems: [WeatherObject] = []
+
     // MARK: - Initializer
 
     init(client: HTTPClientType, stack: CoreDataStack) {
@@ -116,6 +120,7 @@ final class WeatherRepository: WeatherRepositoryType {
     func getCityItems(callback: @escaping ([CityItem]) -> Void) {
         let requestCity: NSFetchRequest<CityObject> = CityObject.fetchRequest()
         guard let cityItems = try? stack.context.fetch(requestCity) else { return }
+        self.cityItems = cityItems
         let city: [CityItem] = cityItems.map { return CityItem(object: $0) }
         callback(city)
     }
@@ -123,26 +128,15 @@ final class WeatherRepository: WeatherRepositoryType {
     // MARK: - Delete from coredata
 
     func deleteWeatherItemInDataBase(timeWeather: String) {
-        let request: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
-        guard request.entityName != nil else { return }
-        request.predicate = NSPredicate(format: "timeWeather == %@", timeWeather)
-
-        if let object = try? stack.context.fetch(request), let firstObject = object.first {
-            stack.context.delete(firstObject)
-            stack.saveContext()
-        }
+        guard let object = weatherItems.first(where: { $0.timeWeather == timeWeather }) else { return }
+        stack.context.delete(object)
+        stack.saveContext()
     }
 
     func deleteCityItemInDataBase(nameCity: String) {
-        let request: NSFetchRequest<CityObject> = CityObject.fetchRequest()
-        guard request.entityName != nil else { return }
-        request.predicate = NSPredicate(format: "nameCity == %@", nameCity)
-
-        if let object = try? stack.context.fetch(request), let firstObject = object.first {
-            stack.context.delete(firstObject)
-            print(firstObject)
-            stack.saveContext()
-        }
+        guard let object = cityItems.first(where: { $0.nameCity == nameCity.lowercased() }) else { return }
+        stack.context.delete(object)
+        stack.saveContext()
     }
 }
 
@@ -182,12 +176,3 @@ extension WeatherItem {
         self.description = "\(weatherItem.weather.first?.weatherDescription ?? "")"
     }
 }
-
-//    func deleteWeatherItemsInDataBase() {
-//        let request: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
-//        guard request.entityName != nil else { return }
-//        if let object = try? stack.context.fetch(request), let firstObject = object.first {
-//            stack.context.delete(firstObject)
-//            stack.saveContext()
-//        }
-//    }
