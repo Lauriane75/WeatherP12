@@ -86,7 +86,7 @@ class WeekViewController: UIViewController {
 
         viewModel.cityText = { [weak self] text in
             DispatchQueue.main.async {
-            self?.cityLabel.text = text
+                self?.cityLabel.text = text
             }
         }
 

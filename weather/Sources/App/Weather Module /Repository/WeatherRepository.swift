@@ -29,7 +29,7 @@ protocol WeatherRepositoryType: class {
 
 enum WeatherOrigin {
     case web([WeatherItem])
-    case database([WeatherItem])
+    case noService([WeatherItem])
 }
 
 final class WeatherRepository: WeatherRepositoryType {
@@ -75,7 +75,7 @@ final class WeatherRepository: WeatherRepositoryType {
                             if let weather = try? self.stack.context.fetch(requestWeather) {
                                 let items: [WeatherItem] = weather.map {
                                     return WeatherItem(object: $0) }
-                                callback(.success(value: .database(items)))
+                                callback(.success(value: .noService(items)))
                             } else {
                                 callback(.error(error: error))
                             }

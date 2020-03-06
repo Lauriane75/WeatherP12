@@ -9,6 +9,7 @@
 import Foundation
 
 protocol SelectCityViewModelDelegate: class {
+    func displayAlert(for type: AlertType)
 }
 
 final class SelectCityViewModel {
@@ -55,6 +56,35 @@ final class SelectCityViewModel {
 
     func didPressAddCity(nameCity: String, country: String) {
         let cityInfo = CityItem(nameCity: nameCity, country: country)
-        repository.saveCityItem(city: cityInfo)
+        repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
+            guard let self = self else { return }
+            switch weather {
+            case .success(value: let dataOrigin):
+                switch dataOrigin {
+                case .web(let items):
+                    guard !items.isEmpty else {
+                        self.delegate?.displayAlert(for: .errorService)
+                        return
+                    }
+                self.saveInDataBase(items)
+                self.repository.saveCityItem(city: cityInfo)
+                case .noService(let items):
+                    guard !items.isEmpty else {
+                        self.delegate?.displayAlert(for: .errorService)
+                        return
+                    }
+                }
+            case .error:
+                self.delegate?.displayAlert(for: .errorService)
+            }
+        })
+    }
+
+    private func saveInDataBase(_ items: ([WeatherItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.saveWeatherItem(weatherItem: index)
+            }
+        }
     }
 }

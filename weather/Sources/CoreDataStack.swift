@@ -42,12 +42,18 @@ final class CoreDataStack {
     // MARK: - Core Data Saving support
 
     func saveContext() {
-        if context.hasChanges {
-            do {
-                try? context.save()
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-    }
+          if context.hasChanges {
+              try? context.save()
+          }
+      }
+
+//    func saveContext() {
+//        if context.hasChanges {
+//            do {
+//                try? context.save()
+//            } catch let error as NSError {
+//                print(error)
+//            }
+//        }
+//    }
 }

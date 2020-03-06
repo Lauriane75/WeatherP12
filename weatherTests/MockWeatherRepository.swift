@@ -22,7 +22,7 @@ class MockWeatherRepository: WeatherRepositoryType {
 
     func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void) {
         if let weatherItems = weatherItems {
-            callback(.success(value: isFromWeb ? .web(weatherItems) : .database(weatherItems)))
+            callback(.success(value: isFromWeb ? .web(weatherItems) : .noService(weatherItems)))
         } else if isSuccess == false {
             callback(.error(error: error))
         }

@@ -52,13 +52,13 @@ final class DetailDayViewModel {
     // MARK: - Private Files
 
     fileprivate func showWeatherOfTheDay() {
-        repository.getWeatherItems { [weak self] (item) in
+        repository.getWeatherItems { [weak self] (items) in
             guard let self = self else { return }
-            guard item != [] else {
+            guard items != [] else {
                 self.delegate?.displayWeatherAlert(for: .errorService)
                 return
             }
-            self.visibleItems?(item.filter { $0.time.contains(self.selectedWeatherItem.time.dayFormat) })
+            self.visibleItems?(items.filter { $0.time.contains(self.selectedWeatherItem.time.dayFormat) })
         }
     }
 }

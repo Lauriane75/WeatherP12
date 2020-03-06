@@ -81,7 +81,7 @@ final class CityListViewModel {
                                 return
                             }
                             self.initialize(weatherItems: items)
-                        case .database(let items):
+                        case .noService(let items):
                             guard !items.isEmpty else {
                                 self.delegate?.displayAlert(for: .errorService)
                                 return
