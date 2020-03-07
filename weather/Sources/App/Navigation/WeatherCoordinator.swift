@@ -30,7 +30,7 @@ final class WeatherCoordinator {
     }
 
     private func showCityList() {
-        let viewController = screens.createCityViewController(delegate: self)
+        let viewController = screens.createCityListViewController(delegate: self)
         presenter.viewControllers = [viewController]
     }
 
@@ -55,7 +55,9 @@ extension WeatherCoordinator: CityListViewModelDelegate {
         showWeekWeather(weatherItem: item)
     }
     func displayAlert(for type: AlertType) {
-
+        DispatchQueue.main.async {
+            self.showAlert(for: type)
+        }
     }
 
 }

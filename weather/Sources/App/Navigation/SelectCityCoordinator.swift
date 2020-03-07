@@ -41,8 +41,16 @@ final class SelectCityCoordinator {
 }
 
 extension SelectCityCoordinator: SelectCityViewModelDelegate {
+
     func displayAlert(for type: AlertType) {
+        DispatchQueue.main.async {
+            self.showAlert(for: type)
+        }
+    }
+}
+
+extension SelectCityCoordinator: CityListViewModelDelegate {
+    func didSelectCity(item: WeatherItem) {
 
     }
-
 }

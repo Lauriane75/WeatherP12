@@ -24,7 +24,7 @@ final class Screens {
 // MARK: - Main
 
 extension Screens {
-    func createCityViewController(delegate: CityListViewModelDelegate?) -> UIViewController {
+    func createCityListViewController(delegate: CityListViewModelDelegate?) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
             "CityListViewController") as! CityListViewController
         let repository = WeatherRepository(client: context.client,

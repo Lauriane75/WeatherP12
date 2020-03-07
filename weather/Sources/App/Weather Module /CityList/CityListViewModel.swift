@@ -46,6 +46,7 @@ final class CityListViewModel {
 
     func viewDidLoad() {
         showCityListWeather()
+        saveWeatherInDataBase(weatherItems)
     }
 
     func didSelectCity(at index: Int) {
@@ -59,6 +60,7 @@ final class CityListViewModel {
         let item = self.weatherItems[index]
         repository.deleteWeatherItemInDataBase(timeWeather: item.time)
         repository.deleteCityItemInDataBase(nameCity: item.nameCity)
+        print(item)
         weatherItems.remove(at: index)
     }
 
@@ -80,13 +82,13 @@ final class CityListViewModel {
                                 self.delegate?.displayAlert(for: .errorService)
                                 return
                             }
-                            self.initialize(weatherItems: items)
+                            self.initializeWeather(weatherItems: items)
                         case .noService(let items):
                             guard !items.isEmpty else {
                                 self.delegate?.displayAlert(for: .errorService)
                                 return
                             }
-                            self.initialize(weatherItems: items)
+                            self.initializeWeather(weatherItems: items)
                         }
                     case .error:
                         self.delegate?.displayAlert(for: .errorService)
@@ -96,12 +98,28 @@ final class CityListViewModel {
         }
     }
 
-    private func initialize(weatherItems: [WeatherItem]) {
+    private func initializeWeather(weatherItems: [WeatherItem]) {
         let weatherItems = weatherItems.first
         guard weatherItems != nil else {
             self.delegate?.displayAlert(for: .errorService)
             return
         }
         self.weatherItems.append(weatherItems!)
+    }
+
+    private func saveWeatherInDataBase(_ items: ([WeatherItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.saveWeatherItem(weatherItem: index)
+            }
+        }
+    }
+
+    private func saveCityInDataBase(_ items: ([CityItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.saveCityItem(city: index)
+            }
+        }
     }
 }

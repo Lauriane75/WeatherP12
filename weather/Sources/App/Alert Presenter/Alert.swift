@@ -8,12 +8,9 @@
 
 import Foundation
 
-enum ServiceError: Error {
-    case noData
-}
-
 enum AlertType {
     case errorService
+    case wrongCityInfo
 }
 
 struct Alert {
@@ -26,6 +23,8 @@ extension Alert {
         switch type {
         case .errorService:
             self = Alert(title: "Error", message: "No internet connection")
+        case .wrongCityInfo:
+            self = Alert(title: "Error", message: "Make sure you right the city and the two first letters of the country correctly")
         }
     }
 }
