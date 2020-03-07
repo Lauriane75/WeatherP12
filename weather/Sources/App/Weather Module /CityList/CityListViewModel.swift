@@ -43,10 +43,15 @@ final class CityListViewModel {
 
     var isLoading: ((Bool) -> Void)?
 
+    var labelState: ((Bool) -> Void)?
+
+    var labelText: ((String) -> Void)?
+
     // MARK: - Input
 
     func viewDidLoad() {
         showCityListWeather()
+        labelText?("Press + to add your first city")
     }
 
     func didSelectCity(at index: Int) {
@@ -62,6 +67,9 @@ final class CityListViewModel {
         repository.deleteCityItemInDataBase(nameCity: item.nameCity.lowercased())
         print(item.nameCity)
         weatherItems.remove(at: index)
+        if weatherItems == [] {
+            labelState?(true)
+        }
     }
 
     // MARK: - Private Functions

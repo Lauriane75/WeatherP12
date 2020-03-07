@@ -16,6 +16,8 @@ class CityListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var label: UILabel!
+
     // MARK: - Properties
 
     var viewModel: CityListViewModel!
@@ -54,12 +56,29 @@ class CityListViewController: UIViewController {
                 switch loadingState {
                 case true:
                     self.tableView.isHidden = true
+                    self.label.isHidden = false
                     self.activityIndicator.isHidden = false
                     self.activityIndicator.startAnimating()
                 case false:
                     self.tableView.isHidden = false
+                    self.label.isHidden = true
                     self.activityIndicator.stopAnimating()
                     self.activityIndicator.isHidden = true
+                }
+            }
+        }
+
+        viewModel.labelText = { [weak self] text in
+            self?.label.text = text
+        }
+        viewModel.labelState = { [weak self] state in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch state {
+                case true:
+                    self.label.isHidden = false
+                case false:
+                    self.label.isHidden = true
                 }
             }
         }

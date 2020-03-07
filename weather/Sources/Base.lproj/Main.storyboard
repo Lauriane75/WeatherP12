@@ -22,6 +22,16 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="J29-Gm-7ES">
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press + to add your first city" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiU-op-jYo">
+                                <rect key="frame" x="20" y="64" width="374" height="80"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="D3g-cI-vrb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T36-ru-rTx">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -88,7 +98,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="EiU-op-jYo" secondAttribute="trailing" constant="20" id="91w-RG-oko"/>
                             <constraint firstItem="J29-Gm-7ES" firstAttribute="centerY" secondItem="bKa-fJ-ai0" secondAttribute="centerY" id="93U-AW-Vf5"/>
+                            <constraint firstItem="EiU-op-jYo" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" constant="20" id="Fza-EE-mcy"/>
                             <constraint firstAttribute="trailing" secondItem="Hnt-ps-oiH" secondAttribute="trailing" id="IRm-vE-myX"/>
                             <constraint firstItem="Hnt-ps-oiH" firstAttribute="top" secondItem="bKa-fJ-ai0" secondAttribute="top" id="KW6-Zx-Fza"/>
                             <constraint firstItem="Hnt-ps-oiH" firstAttribute="leading" secondItem="bKa-fJ-ai0" secondAttribute="leading" id="MbE-uc-xyJ"/>
@@ -96,6 +108,7 @@
                             <constraint firstItem="T36-ru-rTx" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" id="cPc-Db-ttK"/>
                             <constraint firstItem="T36-ru-rTx" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" id="cmU-bD-otp"/>
                             <constraint firstAttribute="bottom" secondItem="Hnt-ps-oiH" secondAttribute="bottom" id="iul-k7-mNY"/>
+                            <constraint firstItem="EiU-op-jYo" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" constant="20" id="kID-ae-oCk"/>
                             <constraint firstItem="Ls2-k4-DPI" firstAttribute="bottom" secondItem="T36-ru-rTx" secondAttribute="bottom" id="rd9-QO-CIv"/>
                             <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="T36-ru-rTx" secondAttribute="trailing" id="wGU-v3-8U8"/>
                         </constraints>
@@ -103,6 +116,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="J29-Gm-7ES" id="lU5-3P-zba"/>
+                        <outlet property="label" destination="EiU-op-jYo" id="JJd-E6-iA4"/>
                         <outlet property="tableView" destination="T36-ru-rTx" id="JZ8-7m-0iG"/>
                     </connections>
                 </viewController>
