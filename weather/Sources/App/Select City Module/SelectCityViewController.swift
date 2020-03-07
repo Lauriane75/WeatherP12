@@ -78,8 +78,10 @@ class SelectCityViewController: UIViewController {
     }
 
     @IBAction func didPressAddButton(_ sender: Any) {
-        guard let city = cityTextField.text else { return }
-        guard let country = countryTextField.text else { return }
+        guard let city = cityTextField.text?.lowercased() else { return }
+        print(city)
+        guard let country = countryTextField.text?.lowercased() else { return }
+        print(country)
         viewModel.didPressAddCity(nameCity: city, country: country)
     }
 

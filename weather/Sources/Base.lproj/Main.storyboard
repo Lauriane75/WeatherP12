@@ -664,7 +664,7 @@
                                         <rect key="frame" x="0.0" y="32" width="354" height="34"/>
                                         <color key="backgroundColor" red="0.97647058823529409" green="0.81172148355342466" blue="0.91914626430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
                                         <connections>
                                             <action selector="didPresCityTextField:" destination="hMc-WA-xf5" eventType="editingDidEnd" id="hTh-rx-b7o"/>
                                         </connections>

@@ -59,8 +59,8 @@ final class CityListViewModel {
         guard !self.weatherItems.isEmpty, index < self.weatherItems.count else { return }
         let item = self.weatherItems[index]
         repository.deleteWeatherItemInDataBase(timeWeather: item.time)
-        repository.deleteCityItemInDataBase(nameCity: item.nameCity)
-        print(item)
+        repository.deleteCityItemInDataBase(nameCity: item.nameCity.lowercased())
+        print(item.nameCity)
         weatherItems.remove(at: index)
     }
 

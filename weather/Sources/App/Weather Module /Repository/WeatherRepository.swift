@@ -129,13 +129,14 @@ final class WeatherRepository: WeatherRepositoryType {
     // MARK: - Delete from coredata
 
     func deleteWeatherItemInDataBase(timeWeather: String) {
-        guard let object = weatherItems.first(where: { $0.timeWeather == timeWeather }) else { return }
+        guard let object = weatherItems.first(where: { $0.timeWeather == timeWeather }) else {
+            return }
         stack.context.delete(object)
         stack.saveContext()
     }
 
     func deleteCityItemInDataBase(nameCity: String) {
-        guard let object = cityItems.first(where: { $0.nameCity == nameCity.lowercased() }) else { return }
+        guard let object = cityItems.first(where: { $0.nameCity == nameCity }) else { return }
         stack.context.delete(object)
         stack.saveContext()
     }
