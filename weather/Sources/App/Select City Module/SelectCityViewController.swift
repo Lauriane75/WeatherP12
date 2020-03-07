@@ -70,13 +70,6 @@ class SelectCityViewController: UIViewController {
 
     // MARK: - View actions
 
-    @IBAction func didPresCityTextField(_ sender: Any) {
-    }
-
-    @IBAction func didPressCountryTextField(_ sender: Any) {
-
-    }
-
     @IBAction func didPressAddButton(_ sender: Any) {
         guard let city = cityTextField.text?.lowercased() else { return }
         print(city)

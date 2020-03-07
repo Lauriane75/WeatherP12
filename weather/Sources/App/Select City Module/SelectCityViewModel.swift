@@ -67,6 +67,7 @@ final class SelectCityViewModel {
                         return
                     }
                     self.repository.saveCityItem(city: cityInfo)
+                    self.saveWeatherInDataBase(items)
                 case .noService(let items):
                     self.delegate?.displayAlert(for: .errorService)
                     print("items = \(items)")
@@ -75,5 +76,13 @@ final class SelectCityViewModel {
                 self.delegate?.displayAlert(for: .errorService)
             }
         })
+    }
+
+    private func saveWeatherInDataBase(_ items: ([WeatherItem])) {
+        DispatchQueue.main.async {
+            items.enumerated().forEach { _, index in
+                self.repository.saveWeatherItem(weatherItem: index)
+            }
+        }
     }
 }

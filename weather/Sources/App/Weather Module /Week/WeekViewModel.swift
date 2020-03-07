@@ -108,12 +108,6 @@ final class WeekViewModel {
         cityText?("\(city)")
     }
 
-//    private func deleteInDataBase(_ items: ([WeatherItem])) {
-//        DispatchQueue.main.async {
-//                self.repository.deleteWeatherItemInDataBase()
-//        }
-//    }
-
     private func getCityItemsSelected() {
         self.nameCity = self.selectedWeatherItem.nameCity
     }

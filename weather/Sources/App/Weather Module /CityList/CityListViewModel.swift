@@ -25,6 +25,7 @@ final class CityListViewModel {
 
     private var weatherItems: [WeatherItem] = [] {
         didSet {
+            print(self.weatherItems)
             self.visibleWeatherItems?(self.weatherItems)
         }
     }
@@ -46,7 +47,6 @@ final class CityListViewModel {
 
     func viewDidLoad() {
         showCityListWeather()
-        saveWeatherInDataBase(weatherItems)
     }
 
     func didSelectCity(at index: Int) {
