@@ -39,7 +39,7 @@ final class SelectCityViewModel {
 
     var countryPlaceHolder: ((String) -> Void)?
 
-    var addText: ((String) -> Void)?
+    var addButtonText: ((String) -> Void)?
 
     // MARK: - Inputs
 
@@ -49,17 +49,23 @@ final class SelectCityViewModel {
         cityPlaceHolder?("Paris")
         countryText?("Enter the first two letters of the country")
         countryPlaceHolder?("fr")
-        addText?("Add this city to the list")
+        addButtonText?("Add this city to the list")
+    }
+
+    func addbuttonNormalState() {
+        addButtonText?("Add this city to the list")
     }
 
     // MARK: - Private Files
 
     func didPressAddCity(nameCity: String, country: String) {
         let cityInfo = CityItem(nameCity: nameCity, country: country)
+        addButtonText?("Error wrong speeling")
         repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
             guard let self = self else { return }
             switch weather {
             case .success(value: let dataOrigin):
+                self.addButtonText?("You've just add \(nameCity.firstCapitalized)")
                 switch dataOrigin {
                 case .web(let items):
                     guard !items.isEmpty else {

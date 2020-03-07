@@ -679,6 +679,9 @@
                                         <color key="backgroundColor" red="0.97647058823529409" green="0.81172148355342466" blue="0.91914626430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
+                                        <connections>
+                                            <action selector="didPressCityTextField:" destination="hMc-WA-xf5" eventType="editingDidEnd" id="qLo-jX-qW5"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -706,6 +709,9 @@
                                         <color key="backgroundColor" red="0.97647058823529409" green="0.81172148355342466" blue="0.91914626430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="didPressCountryTextField:" destination="hMc-WA-xf5" eventType="editingDidEnd" id="98I-T9-jzf"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>

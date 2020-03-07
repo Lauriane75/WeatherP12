@@ -78,7 +78,7 @@ class SelectCityViewModelTests: XCTestCase {
 
         let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
 
-        viewModel.addText = { text in
+        viewModel.addButtonText = { text in
             XCTAssertEqual(text, "Add this city to the list")
         }
         viewModel.viewDidLoad()

@@ -40,10 +40,10 @@ class SelectCityViewController: UIViewController {
     }
 
     deinit {
-         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-     }
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
 
     // MARK: - Private Functions
 
@@ -55,7 +55,7 @@ class SelectCityViewController: UIViewController {
             self?.cityLabel.text = text
         }
         viewModel.cityPlaceHolder = { [weak self] text in
-        self?.cityTextField.placeholder = text
+            self?.cityTextField.placeholder = text
         }
         viewModel.countryText = { [weak self] text in
             self?.countryLabel.text = text
@@ -63,8 +63,10 @@ class SelectCityViewController: UIViewController {
         viewModel.countryPlaceHolder = { [weak self] text in
             self?.countryTextField.placeholder = text
         }
-        viewModel.addText = { [weak self] text in
-            self?.addButton.setTitle(text, for: .normal)
+        viewModel.addButtonText = { [weak self] text in
+            DispatchQueue.main.async {
+                self?.addButton.setTitle(text, for: .normal)
+            }
         }
     }
 
@@ -76,6 +78,14 @@ class SelectCityViewController: UIViewController {
         guard let country = countryTextField.text?.lowercased() else { return }
         print(country)
         viewModel.didPressAddCity(nameCity: city, country: country)
+    }
+
+    @IBAction func didPressCityTextField(_ sender: Any) {
+        viewModel.addbuttonNormalState()
+    }
+
+    @IBAction func didPressCountryTextField(_ sender: Any) {
+        viewModel.addbuttonNormalState()
     }
 
     // MARK: - Private Files
