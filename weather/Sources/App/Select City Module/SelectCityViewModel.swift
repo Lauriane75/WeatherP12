@@ -45,10 +45,10 @@ final class SelectCityViewModel {
 
     func viewDidLoad() {
         titleText?("Select an other city")
-        cityText?("Enter the name of the city")
+        cityText?("Enter a city")
         cityPlaceHolder?("Paris")
-        countryText?("Enter the first two letters of the country")
-        countryPlaceHolder?("fr")
+        countryText?("Enter it's country")
+        countryPlaceHolder?("France")
         addButtonText?("Add this city to the list")
     }
 

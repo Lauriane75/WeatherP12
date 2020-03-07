@@ -159,8 +159,8 @@ extension WeatherItem {
 
 extension CityItem {
     init(object: CityObject) {
-        self.nameCity = object.nameCity ?? ""
-        self.country = object.countryCity ?? ""
+        self.nameCity = object.nameCity?.lowercased() ?? ""
+        self.country = object.countryCity?.lowercased() ?? ""
     }
 }
 
