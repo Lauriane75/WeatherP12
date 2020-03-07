@@ -18,6 +18,8 @@ class CityListViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
 
+    @IBOutlet weak var theWeatherChanelButton: UIButton!
+
     // MARK: - Properties
 
     var viewModel: CityListViewModel!
@@ -89,7 +91,21 @@ class CityListViewController: UIViewController {
         source.selectedCityToDelete = viewModel.didPressDeleteCity
     }
 
-    func navigationBarCustom() {
+    // MARK: - View actions
+
+    @IBAction func didPressWeatherChanelButton(_ sender: Any) {
+        viewModel.didPressChanelButton()
+            self.viewModel.urlText = { text in
+                print(text)
+                guard let url =  URL(string: text) else { return }
+                UIApplication.shared.open(url)
+                print(url)
+        }
+    }
+
+    // MARK: - Private Files
+
+    fileprivate func navigationBarCustom() {
         guard let bar = navigationController?.navigationBar else { return }
         bar.setBackgroundImage(UIImage(), for: .default)
         bar.shadowImage = UIImage()

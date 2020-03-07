@@ -47,6 +47,8 @@ final class CityListViewModel {
 
     var labelText: ((String) -> Void)?
 
+    var urlText: ((String) -> Void)?
+
     // MARK: - Input
 
     func viewDidLoad() {
@@ -70,6 +72,10 @@ final class CityListViewModel {
         if weatherItems == [] {
             labelState?(true)
         }
+    }
+
+    func didPressChanelButton() {
+        urlText?("https://weather.com/")
     }
 
     // MARK: - Private Functions

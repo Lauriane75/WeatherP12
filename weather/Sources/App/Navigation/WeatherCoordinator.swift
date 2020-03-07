@@ -75,5 +75,4 @@ extension WeatherCoordinator: WeekViewModelDelegate {
 }
 
 extension WeatherCoordinator: DetailDayViewModelDelegate {
-    // To do: - Would implement this later
 }
