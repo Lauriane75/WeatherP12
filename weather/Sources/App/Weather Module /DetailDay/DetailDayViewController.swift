@@ -74,5 +74,7 @@ class DetailDayViewController: UIViewController {
     fileprivate func navigationBarCustom() {
         guard let bar = navigationController?.navigationBar else { return }
         bar.tintColor = .white
+        bar.clipsToBounds = false
+        bar.shadowImage = UIColor(red: 215/255, green: 215/255, blue: 215/255, alpha: 1.0).image(CGSize(width: self.view.frame.width, height: 1))
     }
 }

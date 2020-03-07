@@ -95,11 +95,11 @@ class CityListViewController: UIViewController {
 
     @IBAction func didPressWeatherChanelButton(_ sender: Any) {
         viewModel.didPressChanelButton()
-            self.viewModel.urlText = { text in
-                print(text)
-                guard let url =  URL(string: text) else { return }
-                UIApplication.shared.open(url)
-                print(url)
+        self.viewModel.urlText = { text in
+            print(text)
+            guard let url =  URL(string: text) else { return }
+            UIApplication.shared.open(url)
+            print(url)
         }
     }
 
@@ -110,5 +110,12 @@ class CityListViewController: UIViewController {
         bar.setBackgroundImage(UIImage(), for: .default)
         bar.shadowImage = UIImage()
         bar.tintColor = .white
+        bar.clipsToBounds = false
+        bar.shadowImage = UIColor(red: 215/255, green: 215/255, blue: 215/255, alpha: 1.0).image(CGSize(width: self.view.frame.width, height: 1))
+        viewModel.navBarTitle = { text in
+            self.navigationItem.title = text
+        }
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
 }

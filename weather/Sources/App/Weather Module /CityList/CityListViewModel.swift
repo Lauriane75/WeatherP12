@@ -49,11 +49,14 @@ final class CityListViewModel {
 
     var urlText: ((String) -> Void)?
 
+    var navBarTitle: ((String) -> Void)?
+
     // MARK: - Input
 
     func viewDidLoad() {
         showCityListWeather()
         labelText?("Press + to add your first city")
+        navBarTitle?("City list")
     }
 
     func didSelectCity(at index: Int) {

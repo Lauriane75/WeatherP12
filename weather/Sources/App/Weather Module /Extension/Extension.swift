@@ -6,7 +6,7 @@
 //  Copyright © 2020 Lauriane Haydari. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     var dayPlainTextFormat: String {
@@ -40,5 +40,14 @@ extension String {
 extension StringProtocol {
     var firstCapitalized: String {
         return String(prefix(1)).capitalized + dropFirst()
+    }
+}
+
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        }
     }
 }
