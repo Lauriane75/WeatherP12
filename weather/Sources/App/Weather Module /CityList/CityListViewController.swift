@@ -94,13 +94,8 @@ class CityListViewController: UIViewController {
     // MARK: - View actions
 
     @IBAction func didPressWeatherChanelButton(_ sender: Any) {
-        viewModel.didPressChanelButton()
-        self.viewModel.urlText = { text in
-            print(text)
-            guard let url =  URL(string: text) else { return }
-            UIApplication.shared.open(url)
-            print(url)
-        }
+        let url = viewModel.returnUrl()
+        UIApplication.shared.open(url)
     }
 
     // MARK: - Private Files
@@ -115,7 +110,8 @@ class CityListViewController: UIViewController {
         viewModel.navBarTitle = { text in
             self.navigationItem.title = text
         }
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                              NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
     }
 }

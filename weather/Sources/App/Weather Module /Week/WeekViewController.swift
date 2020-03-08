@@ -16,8 +16,6 @@ class WeekViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
 
-    @IBOutlet private weak var cityLabel: UILabel!
-
     @IBOutlet private weak var tempLabel: UILabel!
 
     @IBOutlet private weak var nowLabel: UILabel!
@@ -84,12 +82,6 @@ class WeekViewController: UIViewController {
             }
         }
 
-        viewModel.cityText = { [weak self] text in
-            DispatchQueue.main.async {
-                self?.cityLabel.text = text
-            }
-        }
-
         viewModel.nowText = { [weak self] text in
             self?.nowLabel.text = text
         }
@@ -108,5 +100,11 @@ class WeekViewController: UIViewController {
         bar.tintColor = .white
         bar.clipsToBounds = false
         bar.shadowImage = UIColor(red: 215/255, green: 215/255, blue: 215/255, alpha: 1.0).image(CGSize(width: self.view.frame.width, height: 1))
+        viewModel.navBarTitle = { text in
+            self.navigationItem.title = text
+        }
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                              NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
     }
 }

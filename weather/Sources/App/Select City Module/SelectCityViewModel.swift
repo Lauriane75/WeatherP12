@@ -74,9 +74,8 @@ final class SelectCityViewModel {
                     }
                     self.repository.saveCityItem(city: cityInfo)
                     self.saveWeatherInDataBase(items)
-                case .noService(let items):
+                case .noService:
                     self.delegate?.displayAlert(for: .errorService)
-                    print("items = \(items)")
                 }
             case .error:
                 self.delegate?.displayAlert(for: .errorService)

@@ -86,7 +86,6 @@ final class WeatherRepository: WeatherRepositoryType {
     // MARK: - Save in coredata
 
     func saveWeatherItem(weatherItem: WeatherItem) {
-        print(weatherItem)
         let weatherObject = WeatherObject(context: stack.context)
         weatherObject.nameCityWeather = weatherItem.nameCity
         weatherObject.iconWeather = weatherItem.iconID

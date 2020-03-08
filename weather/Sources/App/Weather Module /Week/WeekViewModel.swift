@@ -43,7 +43,7 @@ final class WeekViewModel {
 
     // MARK: - Outputs
 
-    var cityText: ((String) -> Void)?
+    var navBarTitle: ((String) -> Void)?
 
     var nowText: ((String) -> Void)?
 
@@ -105,7 +105,7 @@ final class WeekViewModel {
             else { return }
         tempText?("\(tempNow)")
         iconText?("\(iconNow)" )
-        cityText?("\(city)")
+        navBarTitle?("\(city)")
     }
 
     private func getCityItemsSelected() {

@@ -32,9 +32,9 @@ final class DetailDayViewModel {
 
     // MARK: - Outputs
 
-    var visibleItems: (([WeatherItem]) -> Void)?
+    var navBarTitle: ((String) -> Void)?
 
-    var cityText: ((String) -> Void)?
+    var visibleItems: (([WeatherItem]) -> Void)?
 
     var tempText: ((String) -> Void)?
 
@@ -43,7 +43,7 @@ final class DetailDayViewModel {
     // MARK: - Inputs
 
     func viewDidLoad() {
-        cityText?("\(selectedWeatherItem.time)")
+        navBarTitle?("\(selectedWeatherItem.time.dayPlainTextFormat)")
         tempText?("\(selectedWeatherItem.temperature)")
         descriptionText?("\(selectedWeatherItem.description.firstCapitalized)")
         showWeatherOfTheDay()

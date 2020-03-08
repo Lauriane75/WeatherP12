@@ -25,7 +25,6 @@ final class CityListViewModel {
 
     private var weatherItems: [WeatherItem] = [] {
         didSet {
-            print(self.weatherItems)
             self.visibleWeatherItems?(self.weatherItems)
         }
     }
@@ -70,15 +69,14 @@ final class CityListViewModel {
         let item = self.weatherItems[index]
         repository.deleteWeatherItemInDataBase(timeWeather: item.time)
         repository.deleteCityItemInDataBase(nameCity: item.nameCity.lowercased())
-        print(item.nameCity)
         weatherItems.remove(at: index)
         if weatherItems == [] {
             labelState?(true)
         }
     }
 
-    func didPressChanelButton() {
-        urlText?("https://weather.com/")
+    func returnUrl() -> URL {
+        return URL(string: "https://weather.com/")!
     }
 
     // MARK: - Private Functions

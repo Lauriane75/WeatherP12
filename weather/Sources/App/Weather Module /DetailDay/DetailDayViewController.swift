@@ -48,10 +48,6 @@ class DetailDayViewController: UIViewController {
 
     private func bind(to viewModel: DetailDayViewModel) {
 
-        viewModel.cityText = { [weak self] text in
-            self?.cityLabel.text = text.dayPlainTextFormat
-        }
-
         viewModel.tempText = { [weak self] text in
             self?.tempLabel.text = text
         }
@@ -76,5 +72,11 @@ class DetailDayViewController: UIViewController {
         bar.tintColor = .white
         bar.clipsToBounds = false
         bar.shadowImage = UIColor(red: 215/255, green: 215/255, blue: 215/255, alpha: 1.0).image(CGSize(width: self.view.frame.width, height: 1))
+        viewModel.navBarTitle = { text in
+            self.navigationItem.title = text
+        }
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                              NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
     }
 }
