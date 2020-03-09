@@ -15,6 +15,5 @@ final class RequestCancelationToken {
     deinit {
         willDealocate?()
     }
-
     var willDealocate:(() -> Void)?
 }

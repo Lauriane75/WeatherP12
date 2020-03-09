@@ -21,7 +21,7 @@ final class Screens {
     }
 }
 
-// MARK: - Main
+// MARK: - City List
 
 extension Screens {
     func createCityListViewController(delegate: CityListViewModelDelegate?) -> UIViewController {
@@ -36,8 +36,10 @@ extension Screens {
     }
 }
 
+// MARK: - Week
+
 extension Screens {
-    func createDaysWeatherViewController(delegate: WeekViewModelDelegate?, selectedWeatherItem: WeatherItem) -> UIViewController {
+    func createWeekWeatherViewController(delegate: WeekViewModelDelegate?, selectedWeatherItem: WeatherItem) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
             "WeatherViewController") as! WeekViewController
         let repository = WeatherRepository(client: context.client,

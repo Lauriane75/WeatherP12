@@ -59,26 +59,28 @@ final class SelectCityViewModel {
     // MARK: - Private Files
 
     func didPressAddCity(nameCity: String, country: String) {
-        let cityInfo = CityItem(nameCity: nameCity, country: country)
+        checkCity(cityName: nameCity, country: country)
         addButtonText?("Error wrong speeling")
         repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
             guard let self = self else { return }
             switch weather {
-            case .success(value: let dataOrigin):
-                self.addButtonText?("You've just add \(nameCity.firstCapitalized)")
-                switch dataOrigin {
-                case .web(let items):
-                    guard !items.isEmpty else {
-                        self.delegate?.displayAlert(for: .errorService)
-                        return
-                    }
-                    self.repository.saveCityItem(city: cityInfo)
-                case .noService:
-                    self.delegate?.displayAlert(for: .errorService)
-                }
+            case .success(value: _):
+                self.addButtonText?("You've just added \(nameCity.firstCapitalized)")
+                self.repository.saveCityItem(city: CityItem(nameCity: nameCity,
+                                                            country: country))
             case .error:
                 self.delegate?.displayAlert(for: .errorService)
             }
         })
+    }
+
+    private func checkCity(cityName: String, country: String) {
+        repository.getCityItems { (cityItems) in
+            cityItems.forEach { item in
+                guard item.nameCity != cityName && item.country != country else {
+                    self.delegate?.displayAlert(for: .cityExists)
+                    return }
+            }
+        }
     }
 }

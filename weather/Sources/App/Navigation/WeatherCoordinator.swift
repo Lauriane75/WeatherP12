@@ -35,7 +35,7 @@ final class WeatherCoordinator {
     }
 
     private func showWeekWeather(weatherItem: WeatherItem) {
-        let viewController = screens.createDaysWeatherViewController(delegate: self, selectedWeatherItem: weatherItem)
+        let viewController = screens.createWeekWeatherViewController(delegate: self, selectedWeatherItem: weatherItem)
         presenter.pushViewController(viewController, animated: true)
     }
 
@@ -59,7 +59,6 @@ extension WeatherCoordinator: CityListViewModelDelegate {
             self.showAlert(for: type)
         }
     }
-
 }
 
 extension WeatherCoordinator: WeekViewModelDelegate {
