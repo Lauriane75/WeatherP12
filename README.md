@@ -1,6 +1,5 @@
 # README 📖
 
-# Please pay attention to the `Accessibility.swift` before running the UITests check the Unit & UI Tests part.
 
 This architecture is split in differents layers/concepts : 
 ● `AppDelegate`
@@ -31,15 +30,6 @@ Then cmd + b.
 # Unit & UI Tests
 
 Please make sure you have an internet connection.
-Before launching all the tests with  `cmd+u`, build the app and select the right informations in `Accessibility.swift` according to the weatherItem you want to test. The `Accessibility.swift` is containing the elements'data you want to test. The data depends on what you will see building the application so make sure the elements' texts are updated.
-
-    Make sure the values of the elements you want to test, matches the values of the constants you can see when building the app:
-    
-    This is an example : You just need to change the value of these static let with the value you can see when you build the app.
-    - static let tempText = "10 °C"
-    - static let selectedDayText = "Saturday"
-    - static let selectedTempText = "10 °C"
-    - static let descriptionText = "Scattered clouds"
 
 Then, press `cmd+u`
 

@@ -58,48 +58,39 @@ final class SelectCityViewModel {
         addButtonText?("Add this city to the list")
     }
 
+   func didPressAddCity(nameCity: String, country: String) {
+          let cityItem = CityItem(nameCity: nameCity, country: country)
+          addButtonText?("Wrong speeling")
+          if repository.containsCity(for: cityItem) {
+              self.delegate?.displayAlert(for: .nonUniqueCity)
+              return
+          }
+          getWeatherItems(nameCity, country, cityItem)
+      }
     // MARK: - Private Files
 
-    func didPressAddCity(nameCity: String, country: String) {
-        let cityItem = CityItem(nameCity: nameCity, country: country)
-        addButtonText?("Error wrong speeling")
-        checkIfCityExists(cityItem)
-        if cityExists == false {
-            repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
-                guard let self = self else { return }
-                switch weather {
-                case .success(value: let dataOrigin):
-                    self.addButtonText?("You've just add \(nameCity.firstCapitalized)")
-                    switch dataOrigin {
-                    case .web(let items):
-                        guard !items.isEmpty else {
-                            self.delegate?.displayAlert(for: .errorService)
-                            return
-                        }
-                        self.repository.saveCityItem(city: cityItem)
-                        self.saveWeatherInDataBase(items)
-                    case .noService:
-                        self.delegate?.displayAlert(for: .errorService)
-                    }
-                case .error:
-                    self.delegate?.displayAlert(for: .errorService)
-                }
-            })
-        } else {
-            self.delegate?.displayAlert(for: .errorService)
-        }
-    }
-
-    private func checkIfCityExists(_ cityItem: CityItem) {
-        repository.getCityItems { (items) in
-            items.forEach { (item) in
-                guard item != cityItem else {
-                    self.cityExists = true
-                    return
-                }
-            }
-        }
-    }
+    fileprivate func getWeatherItems(_ nameCity: String, _ country: String, _ cityItem: CityItem) {
+         repository.getCityWeather(nameCity: nameCity, country: country, callback: { [weak self] weather in
+             guard let self = self else { return }
+             switch weather {
+             case .success(value: let dataOrigin):
+                 self.addButtonText?("You've just add \(nameCity.firstCapitalized)")
+                 switch dataOrigin {
+                 case .web(let items):
+                     guard !items.isEmpty else {
+                         self.delegate?.displayAlert(for: .errorService)
+                         return
+                     }
+                     self.repository.saveCityItem(city: cityItem)
+                     self.saveWeatherInDataBase(items)
+                 case .noService:
+                     self.delegate?.displayAlert(for: .errorService)
+                 }
+             case .error:
+                 self.delegate?.displayAlert(for: .errorService)
+             }
+         })
+     }
 
     private func saveWeatherInDataBase(_ items: ([WeatherItem])) {
         DispatchQueue.main.async {

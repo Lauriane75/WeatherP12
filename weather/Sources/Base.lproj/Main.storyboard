@@ -191,10 +191,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hL-qG-ztf" userLabel="ItemsView">
-                                <rect key="frame" x="0.0" y="135" width="320" height="345"/>
+                                <rect key="frame" x="0.0" y="95" width="320" height="385"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0EC-7f-mpW">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="345"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="385"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -330,7 +330,7 @@
                             <constraint firstItem="FCk-eM-yQe" firstAttribute="bottom" secondItem="M4E-hW-Qg3" secondAttribute="bottom" id="7JB-8h-JUg"/>
                             <constraint firstItem="9aM-kO-fXh" firstAttribute="trailing" secondItem="vGi-8n-mk7" secondAttribute="trailing" constant="110" id="DQ6-6b-LDC"/>
                             <constraint firstItem="6hL-qG-ztf" firstAttribute="trailing" secondItem="9aM-kO-fXh" secondAttribute="trailing" id="EUI-Nr-mYd"/>
-                            <constraint firstItem="6hL-qG-ztf" firstAttribute="top" secondItem="vGi-8n-mk7" secondAttribute="bottom" constant="60" id="EwK-KG-orV"/>
+                            <constraint firstItem="6hL-qG-ztf" firstAttribute="top" secondItem="vGi-8n-mk7" secondAttribute="bottom" constant="20" id="EwK-KG-orV"/>
                             <constraint firstItem="9aM-kO-fXh" firstAttribute="trailing" secondItem="FCk-eM-yQe" secondAttribute="trailing" id="MOh-JA-w46"/>
                             <constraint firstItem="90K-B6-XKq" firstAttribute="top" secondItem="vGi-8n-mk7" secondAttribute="top" id="Nox-OE-dk2"/>
                             <constraint firstItem="vGi-8n-mk7" firstAttribute="leading" secondItem="9aM-kO-fXh" secondAttribute="leading" constant="110" id="S8I-cy-dQL"/>
@@ -397,10 +397,10 @@
                                 <rect key="frame" x="0.0" y="78" width="320" height="402"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cWS-0X-Z1r">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="MzW-iJ-SXg"/>
+                                            <constraint firstAttribute="height" constant="120" id="MzW-iJ-SXg"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Byt-CV-6g7">
                                             <size key="itemSize" width="50" height="110"/>
@@ -410,7 +410,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailWeatherCollectionViewCell" id="WAX-HA-OeK" customClass="DetailDayCollectionViewCell" customModule="weather" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="-10" width="68" height="150"/>
+                                                <rect key="frame" x="0.0" y="-15" width="68" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uxf-Nv-GMt">
                                                     <rect key="frame" x="0.0" y="0.0" width="68" height="150"/>
@@ -461,7 +461,7 @@
                                         </cells>
                                     </collectionView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m2v-am-DZT">
-                                        <rect key="frame" x="0.0" y="136" width="320" height="266"/>
+                                        <rect key="frame" x="0.0" y="126" width="320" height="276"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailWeatherTableViewCell" rowHeight="161" id="YcL-lS-dHA" customClass="DetailDayTableViewCell" customModule="weather" customModuleProvider="target">

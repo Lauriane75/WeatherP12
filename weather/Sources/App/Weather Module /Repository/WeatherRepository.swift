@@ -10,6 +10,9 @@ import CoreData
 
 protocol WeatherRepositoryType: class {
 
+    // MARK: - Non unique city
+    func containsCity(for city: CityItem) -> Bool
+
     // MARK: - Get from openWeather API
     func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void)
 
@@ -50,6 +53,19 @@ final class WeatherRepository: WeatherRepositoryType {
         self.client = client
         self.stack = stack
     }
+
+    // MARK: - Non unique city
+
+    func containsCity(for city: CityItem) -> Bool {
+          let requestCity: NSFetchRequest<CityObject> = CityObject.fetchRequest()
+          guard let cityItems = try? stack.context.fetch(requestCity) else { return false }
+          self.cityItems = cityItems
+          let cities: [CityItem] = cityItems.map { return CityItem(object: $0) }
+          return cities.contains(where: {
+              $0.nameCity == city.nameCity.lowercased() &&
+              $0.country == city.country.lowercased()
+          })
+      }
 
     // MARK: - Get from openWeather API
 

@@ -29,11 +29,15 @@ final class HTTPEngine {
     func send(request: URLRequest,
               cancelledBy token: RequestCancelationToken,
               callback: @escaping HTTPCompletionHander) {
-        let task = session.dataTask(with: request) { (data, urlResponse, _) in
-            if urlResponse != nil, let httpURLResponse = urlResponse as? HTTPURLResponse {
-                callback(data, httpURLResponse, nil)
+        let task = session.dataTask(with: request) { (data, urlResponse, error) in
+            if urlResponse != nil {
+                guard let httpURLResponse = urlResponse as? HTTPURLResponse else {
+                    callback(data, nil, URLSessionEngineError.invalidURLResponseType)
+                    return
+                }
+                callback(data, httpURLResponse, error)
             } else {
-                callback(data, nil, URLSessionEngineError.invalidURLResponseType)
+                callback(data, nil, error)
             }
         }
         task.resume()
