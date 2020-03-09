@@ -22,16 +22,10 @@ protocol WeatherRepositoryType: class {
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
 
     // MARK: - Delete from coredata
-    func deleteWeatherInDataBase()
+    func deleteAllWeathersInDataBase()
     func deleteWeatherItemInDataBase(timeWeather: String)
     func deleteCityItemInDataBase(nameCity: String)
-
 }
-
-//enum WeatherOrigin {
-//    case web([WeatherItem])
-//    case noService([WeatherItem])
-//}
 
 final class WeatherRepository: WeatherRepositoryType {
 
@@ -69,7 +63,7 @@ final class WeatherRepository: WeatherRepositoryType {
                             let items: [WeatherItem] = weatheritems.forecasts.map { item in
                                 let cityItem = weatheritems.city
                                 return WeatherItem(weatherItem: item, cityItem: cityItem) }
-                            self.deleteWeatherInDataBase()
+                            self.deleteAllWeathersInDataBase()
                             DispatchQueue.main.async {
                                 items.forEach { self.saveWeatherItem(weatherItem: $0 ) }
                             }
@@ -131,7 +125,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Delete from coredata
 
-    func deleteWeatherInDataBase() {
+    func deleteAllWeathersInDataBase() {
         let request: NSFetchRequest<NSFetchRequestResult> = WeatherObject.fetchRequest()
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         do {
