@@ -57,8 +57,8 @@ class DetailDayViewModelTests: XCTestCase {
                                                   delegate: delegate,
                                                   selectedWeatherItem: weatherItem)
 
-        viewModel.cityText = { item in
-            XCTAssertEqual(item, self.weatherItem.time)
+        viewModel.navBarTitle = { item in
+            XCTAssertEqual(item, self.weatherItem.time.dayPlainTextFormat)
         }
 
         viewModel.viewDidLoad()

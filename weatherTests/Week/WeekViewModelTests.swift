@@ -47,7 +47,7 @@ class WeekViewModelTests: XCTestCase {
     func test_Given_ViewModel_When_ViewDidLoad_Then_cityTextIsDiplayed() {
         let viewModel = WeekViewModel(repository: repository, delegate: delegate, selectedWeatherItem: weatherItem)
 
-        viewModel.cityText = { text in
+        viewModel.navBarTitle = { text in
             XCTAssertEqual(text, "Paris")
         }
 
@@ -220,16 +220,6 @@ class WeekViewModelTests: XCTestCase {
         viewModel.didSelectWeatherDay(at: 0)
 
         XCTAssertEqual(delegate.weatherItem, self.weatherItem)
-    }
-
-    func test_Given_ViewModel_When_noInternetConnection_Then_alert() {
-        repository.isSuccess = false
-        repository.error = ServiceError.noData
-        let viewModel = WeekViewModel(repository: repository, delegate: delegate, selectedWeatherItem: weatherItem)
-
-        viewModel.viewDidLoad()
-
-        XCTAssertEqual(delegate.alert, .errorService)
     }
 
     func test_Given_ViewModel_When_noItems_Then_alert() {

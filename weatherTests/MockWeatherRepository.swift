@@ -17,12 +17,11 @@ class MockWeatherRepository: WeatherRepositoryType {
     var isSuccess = true
     var isFromWeb = true
 
-    var weatherOrigin: WeatherOrigin!
     var error: Error!
 
-    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void) {
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void) {
         if let weatherItems = weatherItems {
-            callback(.success(value: isFromWeb ? .web(weatherItems) : .noService(weatherItems)))
+            callback(.success(value: weatherItems))
         } else if isSuccess == false {
             callback(.error(error: error))
         }
@@ -44,6 +43,10 @@ class MockWeatherRepository: WeatherRepositoryType {
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void) {
         guard weatherItems != nil else { return }
         callback(weatherItems!)
+    }
+
+    func deleteAllWeathersInDataBase() {
+
     }
 
     func deleteWeatherItemInDataBase(timeWeather: String) {

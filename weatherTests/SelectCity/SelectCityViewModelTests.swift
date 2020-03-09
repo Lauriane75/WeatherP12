@@ -13,6 +13,12 @@ import XCTest
 
 class MocSelectCityViewModelDelegate: SelectCityViewModelDelegate {
 
+    var alert: AlertType?
+
+    func displayAlert(for type: AlertType) {
+        self.alert = type
+    }
+
 }
 
 // MARK: - Tests
@@ -39,7 +45,7 @@ class SelectCityViewModelTests: XCTestCase {
         let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
 
         viewModel.cityText = { text in
-            XCTAssertEqual(text, "Enter the name of the city")
+            XCTAssertEqual(text, "Enter a city")
         }
         viewModel.viewDidLoad()
     }
@@ -59,7 +65,7 @@ class SelectCityViewModelTests: XCTestCase {
         let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
 
         viewModel.countryText = { text in
-            XCTAssertEqual(text, "Enter the first two letters of the country")
+            XCTAssertEqual(text, "Enter it's country")
         }
         viewModel.viewDidLoad()
     }
@@ -69,7 +75,7 @@ class SelectCityViewModelTests: XCTestCase {
         let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
 
         viewModel.countryPlaceHolder = { text in
-            XCTAssertEqual(text, "fr")
+            XCTAssertEqual(text, "France")
         }
         viewModel.viewDidLoad()
     }
