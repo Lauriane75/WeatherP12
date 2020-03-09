@@ -29,6 +29,8 @@ final class CityListViewModel {
         }
     }
 
+    private var weatherItemsToSave: [WeatherItem] = []
+
     // MARK: - Initializer
 
     init(repository: WeatherRepositoryType, delegate: CityListViewModelDelegate?) {
@@ -53,9 +55,9 @@ final class CityListViewModel {
     // MARK: - Input
 
     func viewDidLoad() {
-        showCityListWeather()
         labelText?("Press + to add your first city")
         navBarTitle?("City list")
+        showCityListWeather()
     }
 
     func didSelectCity(at index: Int) {
@@ -97,7 +99,10 @@ final class CityListViewModel {
                                 self.delegate?.displayAlert(for: .errorService)
                                 return
                             }
+                            self.repository.deleteWeatherInDataBase()
                             self.initializeWeather(weatherItems: items)
+                            self.addWeatherToSave(weatherItems: items)
+                            self.saveWeatherInDataBase(self.weatherItemsToSave)
                         case .noService(let items):
                             guard !items.isEmpty else {
                                 self.delegate?.displayAlert(for: .errorService)
@@ -111,6 +116,7 @@ final class CityListViewModel {
                 })
             }
         }
+        weatherItemsToSave = []
     }
 
     private func initializeWeather(weatherItems: [WeatherItem]) {
@@ -120,6 +126,16 @@ final class CityListViewModel {
             return
         }
         self.weatherItems.append(weatherItems!)
+    }
+
+    private func addWeatherToSave(weatherItems: [WeatherItem]) {
+        guard !weatherItems.isEmpty else {
+            self.delegate?.displayAlert(for: .errorService)
+            return
+        }
+        weatherItems.enumerated().forEach { _, index in
+            weatherItemsToSave.append(index)
+        }
     }
 
     private func saveWeatherInDataBase(_ items: ([WeatherItem])) {

@@ -397,10 +397,10 @@
                                 <rect key="frame" x="0.0" y="78" width="320" height="402"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cWS-0X-Z1r">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="MzW-iJ-SXg"/>
+                                            <constraint firstAttribute="height" constant="120" id="MzW-iJ-SXg"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Byt-CV-6g7">
                                             <size key="itemSize" width="50" height="110"/>
@@ -410,7 +410,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailWeatherCollectionViewCell" id="WAX-HA-OeK" customClass="DetailDayCollectionViewCell" customModule="weather" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="-10" width="68" height="150"/>
+                                                <rect key="frame" x="0.0" y="-15" width="68" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uxf-Nv-GMt">
                                                     <rect key="frame" x="0.0" y="0.0" width="68" height="150"/>
@@ -461,7 +461,7 @@
                                         </cells>
                                     </collectionView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m2v-am-DZT">
-                                        <rect key="frame" x="0.0" y="136" width="320" height="266"/>
+                                        <rect key="frame" x="0.0" y="126" width="320" height="276"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailWeatherTableViewCell" rowHeight="161" id="YcL-lS-dHA" customClass="DetailDayTableViewCell" customModule="weather" customModuleProvider="target">

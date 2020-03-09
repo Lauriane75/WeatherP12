@@ -22,6 +22,7 @@ protocol WeatherRepositoryType: class {
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
 
     // MARK: - Delete from coredata
+    func deleteWeatherInDataBase()
     func deleteWeatherItemInDataBase(timeWeather: String)
     func deleteCityItemInDataBase(nameCity: String)
 
@@ -126,6 +127,22 @@ final class WeatherRepository: WeatherRepositoryType {
     }
 
     // MARK: - Delete from coredata
+
+    func deleteWeatherInDataBase() {
+        let request: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
+        guard request.entityName != nil else { return }
+
+        if let object = try? stack.context.fetch(request) {
+            object.enumerated().forEach { _, index in
+                stack.context.delete(index)
+                stack.saveContext()
+            }
+        }
+        let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
+        guard let weatherItems = try? stack.context.fetch(requestWeather) else { return }
+        let weather: [WeatherItem] = weatherItems.map { return WeatherItem(object: $0) }
+        print("weather = \(weather.count)")
+    }
 
     func deleteWeatherItemInDataBase(timeWeather: String) {
         guard let object = weatherItems.first(where: { $0.timeWeather == timeWeather }) else {
