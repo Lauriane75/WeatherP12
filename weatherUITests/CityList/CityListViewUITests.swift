@@ -10,22 +10,16 @@ import XCTest
 
 class CityListViewUITests: UITestCase, RootViewStarting, CityListViewVerifying {
 
-//    func test_Verifying_HomeWeatherView() {
-//        // Wait
-//        cityListViewWaitForExistence()
-//        // Check view
-//        XCTAssertTrue(cityListViewExists())
-//    }
+    func test_Verifying_HomeWeatherView() {
+        // Wait
+        cityListViewWaitForExistence()
+        // Check view
+        XCTAssertTrue(cityListViewExists())
+    }
 
     func test_go_to_SelectCityView() {
         _ = itemPlus.waitForExistence(timeout: 1)
         XCTAssertTrue(itemPlus.exists)
         itemPlus.tap()
     }
-
-//    func test_go_to_DetailWeatherDayView() {
-//        _ = selectedItem.waitForExistence(timeout: 1)
-//        XCTAssertTrue(selectedItem.exists)
-//        selectedItem.tap()
-//    }
 }

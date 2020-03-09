@@ -14,9 +14,9 @@ class SelectCityViewUITests: UITestCase, RootViewStarting, SelectCityViewVerifyi
         // Show view
         showSelectCityView()
         // Wait
-//        selectCityViewWaitForExistence()
+        selectCityViewWaitForExistence()
         // Check view
-//        XCTAssertTrue(selectCityViewExists())
+        XCTAssertTrue(selectCityViewExists())
     }
 
 }

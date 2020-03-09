@@ -12,14 +12,17 @@ protocol SelectCityViewVerifying {
 
     func showSelectCityView()
 
-//    func selectCityViewWaitForExistence()
-//    func selectCityViewExists() -> Bool
+    func selectCityViewWaitForExistence()
+    func selectCityViewExists() -> Bool
 
     // MARK: - Properties
 
-//    var dayLabel: XCUIElement { get }
-//    var tempLabel: XCUIElement { get }
-//    var descriptionLabel: XCUIElement { get }
+    var titleLabel: XCUIElement { get }
+    var cityLabel: XCUIElement { get }
+    var cityTextField: XCUIElement { get }
+    var countryLabel: XCUIElement { get }
+    var countryTextfield: XCUIElement { get }
+    var addButton: XCUIElement { get }
 }
 
 extension SelectCityViewVerifying {
@@ -29,27 +32,44 @@ extension SelectCityViewVerifying {
         cityListViewUITest.test_go_to_SelectCityView()
     }
 
-//    func selectCityViewWaitForExistence() {
-//        _ = dayLabel.waitForExistence(timeout: 1)
-//        _ = tempLabel.waitForExistence(timeout: 1)
-//        _ = descriptionLabel.waitForExistence(timeout: 1)
-//    }
+    func selectCityViewWaitForExistence() {
+        _ = titleLabel.waitForExistence(timeout: 1)
+        _ = cityLabel.waitForExistence(timeout: 1)
+        _ = cityTextField.waitForExistence(timeout: 1)
+        _ = countryLabel.waitForExistence(timeout: 1)
+        _ = countryTextfield.waitForExistence(timeout: 1)
+        _ = addButton.waitForExistence(timeout: 1)
+    }
 
-//    func selectCityViewExists() -> Bool {
-//        return dayLabel.exists
-//            && tempLabel.exists
-//            && descriptionLabel.exists
-//    }
+    func selectCityViewExists() -> Bool {
+        return titleLabel.exists
+            && cityLabel.exists
+            && cityTextField.exists
+            && countryLabel.exists
+            && countryTextfield.exists
+            && addButton.exists
+    }
 
     // MARK: - Properties
 
-//    var dayLabel: XCUIElement {
-//        return XCUIApplication().staticTexts[Accessibility.HomeWeatherView.selectedDayText]
-//    }
-//    var tempLabel: XCUIElement {
-//        return XCUIApplication().staticTexts[Accessibility.HomeWeatherView.selectedTempText]
-//    }
-//    var descriptionLabel: XCUIElement {
-//        return XCUIApplication().staticTexts[Accessibility.DetailWeatherDayView.descriptionText]
-//    }
+    var titleLabel: XCUIElement {
+        return XCUIApplication().staticTexts[Accessibility.SelectCity.titleLabel]
+    }
+    var cityLabel: XCUIElement {
+        return XCUIApplication().staticTexts[Accessibility.SelectCity.cityLabel]
+    }
+    var cityTextField: XCUIElement {
+        return XCUIApplication().textFields[Accessibility.SelectCity.cityTextField]
+    }
+    var countryLabel: XCUIElement {
+        return XCUIApplication().staticTexts[Accessibility.SelectCity.countryLabel]
+    }
+    var countryTextfield: XCUIElement {
+        return XCUIApplication().textFields[Accessibility.SelectCity.countryTextField]
+    }
+    var addButton: XCUIElement {
+        return XCUIApplication().buttons[Accessibility.SelectCity.addButton_normal]
+    }
 }
+
+//app.buttons["Wrong speeling"].tap()

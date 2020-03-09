@@ -53,4 +53,9 @@ class MockWeatherRepository: WeatherRepositoryType {
     func deleteCityItemInDataBase(nameCity: String) {
 
     }
+
+    func containsCity(for city: CityItem) -> Bool {
+        return true
+    }
+
 }

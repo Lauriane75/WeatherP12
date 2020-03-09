@@ -11,19 +11,18 @@ import Foundation
 
 enum Accessibility {
 
-    enum HomeWeatherView {
-        static let parisText = "Paris"
-        static let nowText = "Now"
-        // change the tempText according to the temperature now displayed
-        static let tempText = "7 °C"
-
-        // change the selectedDayText and the selectedTempText in which weather's day you want to test
-        static let selectedDayText = "Saturday"
-        static let selectedTempText = "11 °C"
+    enum SelectCity {
+        static let titleLabel = "Select an other city"
+        static let cityLabel = "Enter a city"
+        static let cityTextField = "Paris"
+        static let countryLabel = "Enter it's country"
+        static let countryTextField = "France"
+        static let addButton_normal = "Add this city to the list"
     }
 
-    enum DetailWeatherDayView {
-        // change the descriptionText according to the description of the weahter's day displayed
-        static let descriptionText = "Few clouds"
+    enum CityList {
+        static let navBarTitle = "City list"
+        static let titleLabel = "Press + to add your first city"
+        static let weatherChanelButton = "The weather chanel"
     }
 }

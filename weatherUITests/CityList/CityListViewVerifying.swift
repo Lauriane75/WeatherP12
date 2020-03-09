@@ -15,9 +15,9 @@ protocol CityListViewVerifying {
 
     // MARK: - Properties
 
-    var cityLabel: XCUIElement { get }
-    var tempLabel: XCUIElement { get }
-    var selectedItem: XCUIElement { get }
+    var navBarTitle: XCUIElement { get }
+    var titleLabel: XCUIElement { get }
+    var weatherChanelButton: XCUIElement { get }
     var itemPlus: XCUIElement { get }
 
 }
@@ -25,31 +25,31 @@ protocol CityListViewVerifying {
 extension CityListViewVerifying {
 
     func cityListViewWaitForExistence() {
-        _ = cityLabel.waitForExistence(timeout: 1)
-        _ = tempLabel.waitForExistence(timeout: 1)
+        _ = navBarTitle.waitForExistence(timeout: 1)
+        _ = titleLabel.waitForExistence(timeout: 1)
+        _ = weatherChanelButton.waitForExistence(timeout: 1)
+        _ = itemPlus.waitForExistence(timeout: 1)
     }
 
     func cityListViewExists() -> Bool {
-        return cityLabel.exists
-            && tempLabel.exists
+        return navBarTitle.exists
+            && titleLabel.exists
+            && weatherChanelButton.exists
+            && itemPlus.exists
     }
 
     // MARK: - Properties
 
-    var cityLabel: XCUIElement {
-        return XCUIApplication().staticTexts[Accessibility.HomeWeatherView.parisText]
+    var navBarTitle: XCUIElement {
+        return XCUIApplication().navigationBars[Accessibility.CityList.navBarTitle].staticTexts[Accessibility.CityList.navBarTitle]
     }
 
-    var tempLabel: XCUIElement {
-        return XCUIApplication().staticTexts[Accessibility.HomeWeatherView.tempText]
+    var titleLabel: XCUIElement {
+        return XCUIApplication().staticTexts[Accessibility.CityList.titleLabel]
     }
 
-    var selectedItem: XCUIElement {
-        return   XCUIApplication()
-            .tables.cells.containing(.staticText,
-                identifier: Accessibility.HomeWeatherView.selectedDayText)
-            .children(matching: .staticText).matching(
-                identifier: Accessibility.HomeWeatherView.selectedTempText).element(boundBy: 2)
+    var weatherChanelButton: XCUIElement {
+        return   XCUIApplication().buttons[Accessibility.CityList.weatherChanelButton]
     }
 
     var itemPlus: XCUIElement {
