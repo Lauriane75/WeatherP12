@@ -102,6 +102,9 @@ class CityListViewController: UIViewController {
 
     fileprivate func navigationBarCustom() {
         guard let bar = navigationController?.navigationBar else { return }
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                                 NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
+        bar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
         bar.setBackgroundImage(UIImage(), for: .default)
         bar.shadowImage = UIImage()
         bar.tintColor = .white
@@ -110,8 +113,5 @@ class CityListViewController: UIViewController {
         viewModel.navBarTitle = { text in
             self.navigationItem.title = text
         }
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                              NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
     }
 }

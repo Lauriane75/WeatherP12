@@ -12,13 +12,9 @@ import XCTest
 // MARK: - Mock
 
 class MocSelectCityViewModelDelegate: SelectCityViewModelDelegate {
-
-    var alert: AlertType?
-
     func displayAlert(for type: AlertType) {
-        self.alert = type
-    }
 
+    }
 }
 
 // MARK: - Tests

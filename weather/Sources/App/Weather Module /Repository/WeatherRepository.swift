@@ -11,7 +11,7 @@ import CoreData
 protocol WeatherRepositoryType: class {
 
     // MARK: - Get from openWeather API
-    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<[WeatherItem]>) -> Void)
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void)
 
     // MARK: - Save in coredata
     func saveCityItem(city: CityItem)
@@ -22,9 +22,14 @@ protocol WeatherRepositoryType: class {
     func getWeatherItems(callback: @escaping ([WeatherItem]) -> Void)
 
     // MARK: - Delete from coredata
-    func deleteAllWeathersInDataBase()
     func deleteWeatherItemInDataBase(timeWeather: String)
     func deleteCityItemInDataBase(nameCity: String)
+
+}
+
+enum WeatherOrigin {
+    case web([WeatherItem])
+    case noService([WeatherItem])
 }
 
 final class WeatherRepository: WeatherRepositoryType {
@@ -48,9 +53,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Get from openWeather API
 
-    func getCityWeather(nameCity: String,
-                        country: String,
-                        callback: @escaping (Result<[WeatherItem]>) -> Void) {
+    func getCityWeather(nameCity: String, country: String, callback: @escaping (Result<WeatherOrigin>) -> Void) {
         let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
 
         guard let url = URL(string: stringUrl) else { return }
@@ -58,22 +61,21 @@ final class WeatherRepository: WeatherRepositoryType {
                        requestType: .GET,
                        url: url,
                        cancelledBy: token) { weather in
+
                         switch weather {
+
                         case .success(value: let weatheritems):
                             let items: [WeatherItem] = weatheritems.forecasts.map { item in
                                 let cityItem = weatheritems.city
                                 return WeatherItem(weatherItem: item, cityItem: cityItem) }
-                            self.deleteAllWeathersInDataBase()
-                            DispatchQueue.main.async {
-                                items.forEach { self.saveWeatherItem(weatherItem: $0 ) }
-                            }
-                            callback(.success(value: items))
+                            callback(.success(value: .web(items)))
+
                         case .error(error: let error):
                             let requestWeather: NSFetchRequest<WeatherObject> = WeatherObject.fetchRequest()
                             if let weather = try? self.stack.context.fetch(requestWeather) {
                                 let items: [WeatherItem] = weather.map {
                                     return WeatherItem(object: $0) }
-                                callback(.success(value: items))
+                                callback(.success(value: .noService(items)))
                             } else {
                                 callback(.error(error: error))
                             }
@@ -124,16 +126,6 @@ final class WeatherRepository: WeatherRepositoryType {
     }
 
     // MARK: - Delete from coredata
-
-    func deleteAllWeathersInDataBase() {
-        let request: NSFetchRequest<NSFetchRequestResult> = WeatherObject.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        do {
-            try stack.context.execute(deleteRequest)
-        } catch {
-            print(error)
-        }
-    }
 
     func deleteWeatherItemInDataBase(timeWeather: String) {
         guard let object = weatherItems.first(where: { $0.timeWeather == timeWeather }) else {

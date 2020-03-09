@@ -10,7 +10,7 @@ import Foundation
 
 enum AlertType {
     case errorService
-    case cityExists
+    case wrongCityInfo
 }
 
 struct Alert {
@@ -23,8 +23,8 @@ extension Alert {
         switch type {
         case .errorService:
             self = Alert(title: "Error", message: "No internet connection")
-        case .cityExists:
-            self = Alert(title: "Error", message: "You've already added this city")
+        case .wrongCityInfo:
+            self = Alert(title: "Error", message: "Make sure you right the city and the two first letters of the country correctly")
         }
     }
 }
