@@ -42,6 +42,8 @@ final class CityListViewModel {
 
     var isLoading: ((Bool) -> Void)?
 
+    var labelState: ((Bool) -> Void)?
+
     var labelText: ((String) -> Void)?
 
     var navBarTitle: ((String) -> Void)?
