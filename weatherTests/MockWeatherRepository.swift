@@ -55,7 +55,7 @@ class MockWeatherRepository: WeatherRepositoryType {
     }
 
     func containsCity(for city: CityItem) -> Bool {
-        return true
+        return false
     }
 
 }

@@ -74,7 +74,7 @@ final class SelectCityViewModel {
              guard let self = self else { return }
              switch weather {
              case .success(value: let dataOrigin):
-                 self.addButtonText?("You've just add \(nameCity.firstCapitalized)")
+                 self.addButtonText?("You've just added \(nameCity.firstCapitalized)")
                  switch dataOrigin {
                  case .web(let items):
                      guard !items.isEmpty else {
@@ -87,7 +87,7 @@ final class SelectCityViewModel {
                      self.delegate?.displayAlert(for: .errorService)
                  }
              case .error:
-                 self.delegate?.displayAlert(for: .errorService)
+                self.delegate?.displayAlert(for: .errorService)
              }
          })
      }

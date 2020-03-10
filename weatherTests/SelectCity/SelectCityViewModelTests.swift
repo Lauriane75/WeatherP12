@@ -86,13 +86,4 @@ class SelectCityViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
     }
 
-    func test_Given_ViewModel_When_didPressAddCity_Then_() {
-
-        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
-
-        viewModel.didPressAddCity(nameCity: "paris", country: "fr")
-
-        viewModel.viewDidLoad()
-    }
-
 }

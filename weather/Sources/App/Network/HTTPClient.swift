@@ -52,8 +52,10 @@ class HTTPClient: HTTPClientType {
                     completion: @escaping (Result<T>) -> Void) where T: Decodable {
         var request = URLRequest(url: url)
         request.httpMethod = requestType.rawValue
-        engine.send(request: request, cancelledBy: token) { (data, _, _) in
-            if let data = data {
+        engine.send(request: request, cancelledBy: token) { (data, _, error) in
+            if let error = error {
+                completion(.error(error: error))
+            } else if let data = data {
                 guard let weather = try?
                     self.jsonDecoder.decode(T.self, from: data) else { return }
                 completion(.success(value: weather))
