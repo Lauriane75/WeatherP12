@@ -60,7 +60,6 @@ final class SelectCityViewModel {
 
    func didPressAddCity(nameCity: String, country: String) {
           let cityItem = CityItem(nameCity: nameCity, country: country)
-          addButtonText?("Wrong speeling")
           if repository.containsCity(for: cityItem) {
               self.delegate?.displayAlert(for: .nonUniqueCity)
               return
@@ -87,7 +86,7 @@ final class SelectCityViewModel {
                      self.delegate?.displayAlert(for: .errorService)
                  }
              case .error:
-                self.delegate?.displayAlert(for: .errorService)
+                self.delegate?.displayAlert(for: .wrongSpelling)
              }
          })
      }

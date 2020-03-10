@@ -12,14 +12,27 @@ import XCTest
 // MARK: - Mock
 
 class MocSelectCityViewModelDelegate: SelectCityViewModelDelegate {
-    func displayAlert(for type: AlertType) {
 
+    var alert: AlertType?
+    func displayAlert(for type: AlertType) {
+        self.alert = type
     }
 }
 
 // MARK: - Tests
 
 class SelectCityViewModelTests: XCTestCase {
+
+    let weatherItem = WeatherItem(nameCity: "paris",
+                                     time: "2020-02-13 12:00:00",
+                                     temperature: "19 °C",
+                                     iconID: "01d",
+                                     temperatureMax: "20 °C",
+                                     temperatureMin: "15 °C",
+                                     pressure: "1002 hPa",
+                                     humidity: "50 %",
+                                     feelsLike: "18 °C",
+                                     description: "Sunny")
 
     let cityItem = CityItem(nameCity: "fr", country: "paris")
 
@@ -86,4 +99,59 @@ class SelectCityViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
     }
 
+    func test_Given_ViewModel_When_didPressAddCity_Then_AddButtonIsDiplayed() {
+
+        repository.weatherItems = [self.weatherItem]
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.viewDidLoad()
+
+        viewModel.addButtonText = { text in
+            XCTAssertEqual(text, "You've just added Paris")
+        }
+
+        viewModel.didPressAddCity(nameCity: "paris", country: "france")
+    }
+
+    func test_Given_ViewModel_When_didPressAddCityWithoutNetwork_Then_Alert() {
+
+        repository.weatherItems = [self.weatherItem]
+        repository.isFromWeb = false
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.viewDidLoad()
+
+        viewModel.didPressAddCity(nameCity: "paris", country: "france")
+
+        XCTAssertEqual(delegate.alert, .errorService)
+    }
+
+    func test_Given_ViewModel_When_didPressAddCityEmpty_Then_Alert() {
+
+        repository.weatherItems = []
+        repository.isFromWeb = false
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.viewDidLoad()
+
+        viewModel.didPressAddCity(nameCity: "paris", country: "france")
+
+        XCTAssertEqual(delegate.alert, .errorService)
+    }
+
+    func test_Given_ViewModel_When_addbuttonNormalState_Then_AddButtonIsDiplayed() {
+
+        let viewModel = SelectCityViewModel(repository: repository, delegate: delegate)
+
+        viewModel.viewDidLoad()
+
+        viewModel.addbuttonNormalState()
+
+        viewModel.addButtonText = { text in
+            XCTAssertEqual(text, "Add this city to the list")
+        }
+    }
 }

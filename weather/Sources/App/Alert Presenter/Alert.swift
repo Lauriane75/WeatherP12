@@ -11,6 +11,7 @@ import Foundation
 enum AlertType {
     case errorService
     case nonUniqueCity
+    case wrongSpelling
 }
 
 struct Alert {
@@ -25,6 +26,8 @@ extension Alert {
             self = Alert(title: "Error", message: "No internet connection")
         case .nonUniqueCity:
             self = Alert(title: "Error", message: "You've already added this city")
+        case .wrongSpelling:
+            self = Alert(title: "Error", message: "Wrong spelling")
         }
     }
 }
